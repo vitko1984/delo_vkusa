@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int          @id @default(autoincrement())
+  name             String?      @db.VarChar(80)
+  email            String?      @unique @db.VarChar(80)
+  phone            String?      @unique @db.VarChar(40)
+  address          String?      @db.VarChar(128)
+  createdAt        DateTime     @default(now()) @map("created_on")
+  updatedAt        DateTime     @updatedAt @map("updated_on")
+  password         String?      @unique @db.VarChar(128)
+  uid              String?      @unique @default(uuid()) @db.VarChar(50)
+  role             Role         @default(USER)
+  posts            Post[]
+  basket           Basket[]
+  profile          Profile?
+
+  @@map("users")
+}
+
+model Profile {
+  id                Int         @id @default(autoincrement())
+  bio               String?
+  user              User        @relation(fields: [userId], references: [id])
+  userId            Int         @unique @map("user_id")
+
+  @@map("profile")
+  @@index([userId])
+}
+
+model Post {
+  id                Int         @id @default(autoincrement())
+  createdAt         DateTime    @default(now()) @map("created_on")
+  updatedAt         DateTime    @updatedAt @map("updated_on")
+  productName       String?     @db.VarChar(200)
+  rating            Int?        @db.SmallInt
+  comment           String?     @db.VarChar(255)
+  user              User?       @relation(fields: [userId], references: [id])
+  userId            Int         @map("post_id")
+
+  productTags       ProductTag[]
+
+  @@index([userId], map: "Post_clientId_fkey")
+  @@map("posts")
+}
+
+model Basket {
+  id                Int         @id @default(autoincrement())
+  createdAt         DateTime    @default(now()) @map("created_on")
+  updatedAt         DateTime    @updatedAt @map("updated_on")
+  productName       String?     @unique @db.VarChar(200)
+  price             String?     @db.VarChar(20)
+  amount            Int?        @db.SmallInt
+  order             Boolean?    @default(false)    
+  user              User?       @relation(fields: [userId], references: [id])
+  userId            Int         @map("basket_id")
+
+  @@index([userId], map: "Basket_clientId_fkey")
+  @@map("basket")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Category {
+  id                 Int         @id @default(autoincrement())
+  name               String?     @unique @db.VarChar(150) 
+  createdAt          DateTime    @default(now()) @map("created_on")
+  updatedAt          DateTime    @updatedAt @map("updated_on")
+
+  products           Product[]
+
+  tag                Tag?          @relation(fields: [tagId], references: [id])
+  tagId              Int?           @map("tag_id")
+
+  @@map("categories")
+  @@index([tagId])
+}
+
+model Tag {
+  id                 Int         @id @default(autoincrement())
+  name               String?     @unique @db.VarChar(150) 
+  createdAt          DateTime    @default(now()) @map("created_on")
+  updatedAt          DateTime    @updatedAt @map("updated_on")
+
+  productTags        ProductTag[]
+  categories         Category[]
+
+  @@map("tags")
+}
+
+enum Visibility {
+  VISIBLE
+  HIDDEN
+  FEATURED
+  DEAL
+}
+
+model Product {
+  id                 Int          @id @default(autoincrement())
+  name               String?      @unique @db.VarChar(200)
+  slug               String?      @unique @db.VarChar(200)
+  reference          String?      @unique @default(uuid()) @db.VarChar(50)
+  description        String?      @db.Text
+  price              String?      @db.VarChar(10)
+  isAvailable        Boolean?     @default(true) @map("is_available") 
+  viewCount          Int?         @default(0) @map("view_count") 
+  visibility         Visibility   @default(VISIBLE)
+  photo              String?      @unique @db.VarChar(40)
+  pictures           Json?
+  extras             Json?        @db.Json
+  createdAt          DateTime     @default(now()) @map("created_on")
+  updatedAt          DateTime     @updatedAt @map("updated_on")
+  category           Category?    @relation(fields: [categoryId], references: [id])
+  categoryId         Int?         @map("category_id")
+
+  productTags        ProductTag[]
+
+  @@map("products")
+  @@index([categoryId])
+}
+
+model ProductTag {
+  product            Product      @relation(fields: [productId], references: [id])
+  productId          Int          @map("product_id")
+  tag                Tag          @relation(fields: [tagId], references: [id])
+  tagId              Int          @map("tag_id")
+  post               Post         @relation(fields: [postId], references: [id])
+  postId             Int          @map("post_id")
+
+  @@id([productId, tagId, postId])
+  @@map("products_tags")
+}

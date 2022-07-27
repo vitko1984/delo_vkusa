@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* purge start ignore */
+
+  *, *:before, *:after {
+  @apply box-border;
+}
+
+@layer base {
+  body {;
+    @apply relative antialiased text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-900 
+    leading-normal tracking-normal font-normal break-words font-sans text-base lg:text-xl h-full;
+  }
+
+  a {
+    @apply text-blue-600 dark:text-blue-400 no-underline focus:outline-none focus:underline;
+  }
+
+  h1 {
+    @apply text-5xl font-extrabold mb-4 text-gray-600 dark:text-gray-400;
+  }
+
+  h2 {
+    @apply m-0 text-xl font-bold;
+  }
+
+  h3 {
+    @apply text-base leading-5 font-bold;
+  }
+
+  button {
+    @apply focus:outline-none hover:cursor-pointer;
+  }
+
+  input[type="text"],
+  input[type="submit"],
+  input[type="button"],
+  input[type="password"],
+  input[type="tel"],
+  select,
+  textarea {
+    @apply appearance-none focus:outline-none;
+  }
+
+  input {
+    @apply bg-gray-100 border border-solid border-gray-200 dark:border-gray-700 rounded-sm h-12 w-2/3 mx-0 my-1 py-3 px-5 text-gray-400 text-sm;
+  }
+
+  input.disabled {
+    @apply opacity-50 pointer-events-none;
+  }
+
+  header {
+    @apply fixed top-0 left-0 w-full bg-white shadow-sub z-10;  
+  }
+  main {
+    @apply flex-auto py-4 bg-gray-100 dark:bg-gray-600  mt-[132px];
+  }
+
+  footer {
+     @apply w-full text-white text-opacity-60 bg-gray-800; 
+  }
+}
+
+@layer components {
+  .page {
+    @apply flex flex-col;
+}
+
+  .container {
+    @apply max-w-screen-2xl lg:px-20 px-1 py-4 w-full mx-auto my-0 bg-white text-center;
+  }
+
+  .container-no-height {
+    @apply max-w-screen-2xl lg:px-20 py-4 w-full mx-auto my-0 bg-white text-center;
+  }
+
+  .hdr {
+    @apply flex justify-between items-center px-[70px];
+  }
+
+  .button {
+    @apply inline-block py-[5px] px-[15px] border-0 rounded-[28px] decoration-0 transition-transform bg-[#ab8c52] hover:scale-110 cursor-pointer text-white text-[18px] font-bold shadow-btnModalShadow;
+  }
+
+  .btn {
+    @apply appearance-none relative inline-flex items-center bg-blue-500 rounded-sm text-white whitespace-nowrap cursor-pointer p-4 font-semibold transition-colors duration-300 ease-in-out;
+  }
+
+  .btn--big {
+    @apply uppercase w-full justify-center hover:bg-blue-600;
+  }
+
+  .btn--success {
+    @apply bg-green-500 hover:bg-green-600;
+  }
+
+  .input-code {
+    @apply text-center;
+  }
+
+  .bg-blog {
+    @apply bg-blue-500;
+  }
+
+  .primary {
+    @apply text-purple-100 bg-purple-600;
+  }
+
+  .secondary {
+    @apply text-gray-100 bg-gray-500;
+  }
+
+  .success {
+    @apply text-green-100 bg-green-600;
+  }
+
+  .danger {
+    @apply text-red-100 bg-red-600;
+  }
+
+  .warning {
+    @apply text-orange-100 bg-orange-600;
+  }
+
+  .info {
+    @apply text-blue-100 bg-blue-600;
+  }
+
+  .light {
+    @apply text-gray-700 bg-white;
+  }
+
+  .dark {
+    @apply text-gray-100 bg-gray-700;
+  }
+}
+
+/* purge end ignore */
