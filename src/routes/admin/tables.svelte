@@ -112,7 +112,6 @@
 </main>
 
 <script context="module">
-  export const prerender = true;
   /** @type {import('./[slug]').Load} */
   export const load = async ({ fetch }) => {
     const products = await fetch('/api');
@@ -133,11 +132,15 @@
 
   export let get_prd;
 
+  let get_products = get_prd.tbl ? get_prd.tbl : [];
+
   console.log('Выборка продуктов: ', get_prd.tbl);
+  console.log('Сообщение выборки продуктов: ', get_prd.msg);
+
 
   let rowTable: {name?: string; tag?: string; category?: string; photo?: string; price?: string; description?: string}[] = [];
   let rw: {name?: string; tag?: string; category?: string; photo?: string; price?: string; description?: string;} = {};
-  for (const v of get_prd.tbl) {
+  for (const v of get_products) {
     rw = {...rw, tag: v.name};
     for (const s of v.categories) {
       rw = {...rw, category: s.name};
@@ -211,7 +214,7 @@
         if (q.name === r.tag) tags[i].categories.push({name: r.name, products: r.products});
       });
     });
-    const res = await fetch('/goods', {method: 'POST', body: JSON.stringify(tags), headers: {'Content-Type': 'application/json'}});
+    const res = await fetch('/api', {method: 'POST', body: JSON.stringify(tags), headers: {'Content-Type': 'application/json'}});
     if (res.ok) {
       rw = {};
       const result = await res.json();
@@ -239,7 +242,7 @@
 
   const handleClearTable = async () => {
     console.log('***handleClearTable***');
-    const res = await fetch('/goods', {method: 'DELETE'});
+    const res = await fetch('/api', {method: 'DELETE'});
     if (res.ok) {
       rowTable = [];
       const result = await res.json();
@@ -288,7 +291,7 @@ $: console.log('isErrors: ', isErrors);
 $: console.log('Сортировка: ', is_direction);
 </script>
 
-<style lang="postcss">
+<style>
   .active_sort {
     @apply text-amber-500;
   }
@@ -296,11 +299,6 @@ $: console.log('Сортировка: ', is_direction);
   .name_shadow {
     @apply shadow-rowRightShadow;
   }
-
-  /*.margin_left {
-    @apply ml-[120px];
-  }*/
-
   .border_right {
     @apply border-r border-[#eeecf7] border-solid h-full;
   }

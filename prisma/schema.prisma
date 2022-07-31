@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  engineType = "binary"
 }
 
 datasource db {
@@ -12,6 +13,7 @@ datasource db {
 
 model User {
   id               Int          @id @default(autoincrement())
+  avatar           String?      @db.VarChar(40) @default("user.png")
   name             String?      @db.VarChar(80)
   email            String?      @unique @db.VarChar(80)
   phone            String?      @unique @db.VarChar(40)
@@ -19,7 +21,7 @@ model User {
   createdAt        DateTime     @default(now()) @map("created_on")
   updatedAt        DateTime     @updatedAt @map("updated_on")
   password         String?      @unique @db.VarChar(128)
-  uid              String?      @unique @default(uuid()) @db.VarChar(50)
+  uid              String?      @unique @db.VarChar(50)
   role             Role         @default(USER)
   posts            Post[]
   basket           Basket[]

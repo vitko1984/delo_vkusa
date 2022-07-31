@@ -30,6 +30,10 @@
     @apply text-base leading-5 font-bold;
   }
 
+  li {
+    list-style-type: none; /* Убираем маркеры */
+   }
+
   button {
     @apply focus:outline-none hover:cursor-pointer;
   }
@@ -53,7 +57,7 @@
   }
 
   header {
-    @apply fixed top-0 left-0 w-full bg-white shadow-sub z-10;  
+    @apply fixed top-0 left-0 w-full bg-white shadow-md z-10;  
   }
   main {
     @apply flex-auto py-4 bg-gray-100 dark:bg-gray-600  mt-[132px];
@@ -78,7 +82,7 @@
   }
 
   .hdr {
-    @apply flex justify-between items-center px-[70px];
+    @apply flex justify-between items-center px-1 xl:px-[70px];
   }
 
   .button {

@@ -15,13 +15,12 @@
 
   export let user: any;
   const { photo, first_name, last_name } = user;
-  let withSearch = true
+  let withSearch = true;
+  let avatar = 'my_photo.jpg'
 </script>
 
-<header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-  <div
-    class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
-  >
+<header class="py-4 dark:bg-gray-800">
+  <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
     <!-- Mobile hamburger -->
     <button
       id="nav-mobile-hamburger"
@@ -145,7 +144,7 @@
           >
             <img
               class="object-cover w-8 h-8 rounded-full"
-              src="{photo}"
+              src="/{photo}"
               alt="{first_name} {last_name}"
               aria-hidden="true"
             />

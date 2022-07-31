@@ -82,7 +82,9 @@
     textarea?: string;
     default?: number;
     address?: string;
-    title?: string;	
+    title?: string;
+    posts?: object[];
+    basket?: object[];	
   }
   
   export interface Errs {

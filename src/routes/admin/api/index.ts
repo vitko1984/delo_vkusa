@@ -17,7 +17,7 @@ export const GET: import('@sveltejs/kit').RequestHandler = async ({locals}) => {
 	const reqObj = {select: {name: true, categories: {select: {name: true, products: {select: {name: true, photo: true, price: true, description: true}}}}}, };
 	const products = await api('tag', 'get_many', reqObj);
 	console.log('getProducts: ', products.body);
-	/*if (!products.body) {
+	if (!products.body) {
 	  return { 
 		status: 204,
 		msg: 'Ничего не найдено.' 
@@ -30,7 +30,7 @@ export const GET: import('@sveltejs/kit').RequestHandler = async ({locals}) => {
           msg: 'Товары успешно извлечены из БД.',
         }
 	  };
-	};*/
+	};
   } catch(e) {
 	console.log('Ошибка БД: ', e.name);
 	console.log('Сообщение об ошибке: ', e.message);

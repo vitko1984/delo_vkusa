@@ -1,6 +1,5 @@
 import * as cookie from 'cookie';
 import type { Handle, GetSession } from '@sveltejs/kit';
-import my_photo from '$lib/pictures/my_photo.jpg';
 
 // функция - дескриптор, выполняется только на сервере
 // и перехватывает каждый запрос на сервер
@@ -15,8 +14,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     event.locals.user = {
       id: 1,
       email: "knnaksay@gmail.com",
-      photo: my_photo,
-      //photo: '',
+      photo: 'my_photo.jpg',
       first_name: "Николай",
       last_name: "Коваленко",
     };
@@ -27,15 +25,15 @@ export const handle: Handle = async ({ event, resolve }) => {
   // здесь(после вызова функции разрешения - resolve) код выполняется после вызова конечной точки или страницы
 
   if ( !cookies['userid'] ) {
-	// когда пользователь первый раз  посещает это приложение,
+	  // когда пользователь первый раз  посещает это приложение,
     response.headers.set(
-	  'set-cookie',
-	  cookie.serialize('userid', event.locals.userid, {
-		path: '/',
-		httpOnly: true,
+	    'set-cookie',
+	    cookie.serialize('userid', event.locals.userid, {
+		    path: '/',
+        httpOnly: true,
         maxAge: 1000*60*60*24*30,
-	  })
-	);
+	    })
+	  );
   }
 
   return response;
