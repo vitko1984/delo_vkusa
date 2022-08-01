@@ -38,8 +38,8 @@
     };
   };
 
-  $: console.log('Название продукта: ', nameProduct);
-  $: console.log('Comments: ', comments);
-  $: console.log('Users: ', $users);
-  $: console.log('Ratings: ', $ratings);
+  //$: console.log('Название продукта: ', nameProduct);
+  //$: console.log('Comments: ', comments);
+  //$: console.log('Users: ', $users);
+  //$: console.log('Ratings: ', $ratings);
 </script>

@@ -109,14 +109,6 @@
     //
   };
 
-  /*const getRating = async () => {
-    console.log('****getRating**');
-    const res = await fetch('/api/get_ratings');
-    if (res.ok) {
-      galleryRatings = await res.json();
-    };
-  };*/
-
   const postBasket = async (data: object) => {
     console.log('***postBasket***');
     const res = await fetch('/api/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});

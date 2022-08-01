@@ -16,6 +16,11 @@
 <script lang="ts">
   import '../../app.css';
   import Header from '$lib/header/Header.svelte';
+  import Basket from '$lib/templates/BasketInner.svelte';
+  import Dialog from '$lib/templates/Dialog.svelte';
+  //import Order from '$lib/templates/Order.svelte';
+  //import Search from '$lib/templates/Search.svelte';
+  //import BackCall from '$lib/templates/Call.svelte'
   import type { Edit, DataGallery } from '$lib/types';
   import { 
     modalId as ident,
@@ -33,11 +38,15 @@
   export let user: any;
   export let get_prd: {tbl: any[]; msg: string; status: number};
 
+  let isNoErrors = false;
+  let count = 0;
+
   $dataGallery = get_prd.tbl;
   $uid = userid;
   $users = [];
   $galleryRatings = [];
   $basket = [];
+  $form.total = 0;
 
   for (let v of usr.users) {
     if (v.uid === $uid) {
@@ -46,10 +55,20 @@
       $form.phone = v.phone ? v.phone : '';
       $form.address = v.address ? v.address : '';
     };
-    $users = [...$users, {id: v.id, name: v.name, email: v.email, phone: v.phone, address: v.address}];
+    $users = [...$users, {id: v.id, uid: v.uid, name: v.name, email: v.email, phone: v.phone, address: v.address}];
     $galleryRatings = [...$galleryRatings, ...v.posts];
     $basket = [...$basket, ...v.basket];
   };
+
+  $basket.map((v, i) => {
+    $basket.splice(i, 1, {...v, isCount: false});
+    if (new RegExp($uid).test(v.productName)) {
+      $form.total += v.price * v.amount; 
+      count = count + v.amount;
+    }; 
+  });
+
+  $cnt = count;
 
   let product: DataGallery | undefined;
   let zefirFlowers = $dataGallery;
@@ -62,11 +81,69 @@
     if (product === undefined) $ident = '';
   };
 
+  const handleAction = (vl: (string|number|boolean)[]) => {
+    alert(vl[0]);
+    console.log('handleModal: ', vl[0]);
+    if (vl[0] === 'Оформить') {
+      $ident = 'order';      
+    };
+    if (vl[0] === 'Заказ') {
+      $isHandleErrors = true;
+      isNoErrors = $form.name.length === 0 || $form.email.length === 0 || $form.phone.length === 0 || 
+      ($form.name.length > 0 && $form.name.length <= 1) || ($form.email.length > 0 && !/@/.test($form.email)) || 
+      ($form.phone.length > 0 && $form.phone.length <= 10) ? false : true;
+      dataUser = {title: vl[0], name: $form.name, email: $form.email, phone: $form.phone, address: $form.address, envelope: $basket.filter(v => new RegExp(userid).test(v.productName)), total: $form.total, };
+    };
+    if (vl[0] === 'Перезвонить') {
+      $isHandleErrors = true;
+      isNoErrors = $form.name.length === 0 || $form.phone.length === 0 || 
+      ($form.name.length > 0 && $form.name.length <= 1) || ($form.phone.length > 0 && $form.phone.length <= 10) ? false : true;
+      dataUser = {title: vl[0], name: $form.name, phone: $form.phone, wish: $form.wish || $form.wish.length !== 0 ? $form.wish : ''};
+    };
+    if (vl[0] === 'В корзину' && product !== undefined) {
+      $cnt += 1;
+      let data = {productName: product.name, price: product.price, amount: 1};
+      if ($basket.length !== 0) {
+        let _count = 0;
+        $basket.map((v, i) => {
+          if (v.productName === `${data.productName}|${$uid}`) {
+            _count = _count + 1;
+            data = {productName: data.productName, price: v.price, amount: v.amount +1};
+            $basket.splice(i, 1, {productName: v.productName, price: v.price, amount: v.amount +1}); 
+          };
+          if ((i === $basket.length - 1) && _count === 0)  $basket.push({productName: `${data.productName}|${$uid}`, price: data.price, amount: data.amount});
+        });
+      } else {
+        $basket.push({productName: `${data.productName}|${$uid}`, price: data.price, amount: data.amount});
+      };
+      console.log('Обновленное хранилище корзины: ', $basket);
+      postBasket(data);
+    };
+  };
+
+  const postBasket = async (data: object) => {
+    console.log('***postBasket***');
+    try {
+      const res = await fetch('/api/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+      if (res.ok) {
+        const result = await res.json();
+        console.log('Ответ сервера(PostUserBasket): ', result.msg);
+        $ident = '';
+        return {
+          message: result.msg
+        };
+      };
+    } catch(error) {
+      console.log('Здесь произошла ошибка!')
+      console.error(error)
+    }
+  };
+
   $: console.log('Идент-р пользователя: ', $uid);
   $: console.log('Все продукты: ', $dataGallery);
   $: console.log('Все с пользователей: ', usr.users);
   $: console.log('Хранилище пользователей: ', $users);
-  //$: console.log('Хранилище рейтингов: ', $galleryRatings);
+  $: console.log('Хранилище рейтингов: ', $galleryRatings);
   $: console.log('Хранилище корзины: ', $basket);
   $: console.log('Хранилище значений полей форм: ', $form);
 </script>
@@ -76,6 +153,25 @@
   <main>
     <slot />
   </main>
+
+  {#if $ident === 'basket'}
+    <Dialog header={'Ваши заказы'} idx={0} onAction={info => handleAction(info)}>
+      <Basket  />
+    </Dialog>
+  <!--{:else if $ident === 'order'}
+    <Dialog header={'Оформление заказа'} idx={0} onAction={info => handleAction(info)}>
+      <Order />
+    </Dialog>
+  {:else if $ident === 'phone'}
+    <Dialog header={'Обратный звонок'} idx={0} onAction={info => handleAction(info)}>
+      <BackCall />
+    </Dialog>
+  {:else if $ident === 'search'}
+    <Dialog header='Карточка продукта' idx={0} onAction={info => handleAction(info)}>
+      <Search {product} {rtngs} {ctgrs} />
+    </Dialog>-->
+  {/if}
+
   <footer class="flex flex-col text-center py-5">
     <p>Разработка - "<a href="https://delo_vkusa.ru" target="_blank" class="focus:no-underline">Дело вкуса</a>"</p>
     <p>Эл.почта: nk1389074@gmail.com</p>

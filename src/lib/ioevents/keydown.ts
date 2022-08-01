@@ -14,3 +14,21 @@ export function keydownEscape(node) {
     },
   }
 }
+
+/** Dispatch event on keydown Enter of node */
+export function keydownEnter(node) {
+  const handle = (event) => {
+    if (event.key === 'Enter') {
+      node.dispatchEvent(new CustomEvent('keydown-enter', node))
+    }
+  }
+
+  document.addEventListener('keydown', handle, true)
+
+  return {
+    destroy() {
+      document.removeEventListener('keydown', handle, true)
+    },
+  }
+}
+
