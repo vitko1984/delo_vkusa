@@ -1,5 +1,5 @@
 <!--<form on:submit|preventDefault="{handleSubmit}" class="">-->
-  <div class="flex flex-col items-../stores/stores8">
+  <div class="flex flex-col items-start pl-2">
     <span class="label">
       <i class="label-text text-[#ab8c52] font-normal text-3xl">Покупатель</i>
     </span>

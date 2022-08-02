@@ -18,9 +18,9 @@
   import Header from '$lib/header/Header.svelte';
   import Basket from '$lib/templates/BasketInner.svelte';
   import Dialog from '$lib/templates/Dialog.svelte';
-  //import Order from '$lib/templates/Order.svelte';
-  //import Search from '$lib/templates/Search.svelte';
-  //import BackCall from '$lib/templates/Call.svelte'
+  import Order from '$lib/templates/Order.svelte';
+  import Search from '$lib/templates/Search.svelte';
+  import BackCall from '$lib/templates/Call.svelte'
   import type { Edit, DataGallery } from '$lib/types';
   import { 
     modalId as ident,
@@ -32,6 +32,8 @@
     form,
     galleryRatings, 
     dataGallery } from '../../stores/app';
+
+  interface DataUser extends Edit {envelope?: Edit[], };  
   
   export let userid = '';
   export let usr: {users: Edit[]; msg?: string};
@@ -40,6 +42,7 @@
 
   let isNoErrors = false;
   let count = 0;
+  let dataUser: DataUser;
 
   $dataGallery = get_prd.tbl;
   $uid = userid;
@@ -70,15 +73,16 @@
 
   $cnt = count;
 
-  let product: DataGallery | undefined;
+  let product: DataGallery = {};
   let zefirFlowers = $dataGallery;
 
-  const headerEvent = (event: { detail: { name: string|any[]; searchIdent: any; }; }) => {
-    if (event.detail.name.length === 0) return;
+  const headerEvent = (event: { detail: { product:object; searchIdent:string; }; }) => {
+    console.log('***HeaderEvent***', event.detail);
+    if (!event.detail.product) return;
     $ident = event.detail.searchIdent;
-    product = undefined;
-    zefirFlowers.map((v: DataGallery) => {if (v.name === event.detail.name) product = v});
-    if (product === undefined) $ident = '';
+    product = {...event.detail.product};
+    //zefirFlowers.map((v: DataGallery) => {if (v.name === event.detail.name) product = v});
+    //if (product === undefined) $ident = '';
   };
 
   const handleAction = (vl: (string|number|boolean)[]) => {
@@ -139,6 +143,21 @@
     }
   };
 
+  const handleSubmit = async () => {
+    console.log('***HandleSubmit***');
+    const res = await fetch('/api/user', {method: 'POST', body: JSON.stringify(dataUser), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+    if (res.ok) {
+      const result = await res.json();
+      if (result.isMail) $ident = '';
+      console.log('Ответ сервера(HandleSubmit): ', result.msg);
+      return {
+        message: result.msg
+      };
+    };
+  };
+
+  $: isNoErrors && handleSubmit();
+
   $: console.log('Идент-р пользователя: ', $uid);
   $: console.log('Все продукты: ', $dataGallery);
   $: console.log('Все с пользователей: ', usr.users);
@@ -146,6 +165,7 @@
   $: console.log('Хранилище рейтингов: ', $galleryRatings);
   $: console.log('Хранилище корзины: ', $basket);
   $: console.log('Хранилище значений полей форм: ', $form);
+  $: console.log('Header-product: ', product);
 </script>
 
 <div class="page">
@@ -158,7 +178,7 @@
     <Dialog header={'Ваши заказы'} idx={0} onAction={info => handleAction(info)}>
       <Basket  />
     </Dialog>
-  <!--{:else if $ident === 'order'}
+  {:else if $ident === 'order'}
     <Dialog header={'Оформление заказа'} idx={0} onAction={info => handleAction(info)}>
       <Order />
     </Dialog>
@@ -168,8 +188,8 @@
     </Dialog>
   {:else if $ident === 'search'}
     <Dialog header='Карточка продукта' idx={0} onAction={info => handleAction(info)}>
-      <Search {product} {rtngs} {ctgrs} />
-    </Dialog>-->
+      <Search {product} />
+    </Dialog>
   {/if}
 
   <footer class="flex flex-col text-center py-5">

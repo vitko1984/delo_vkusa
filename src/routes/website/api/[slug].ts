@@ -206,16 +206,16 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
       };
   
         const mailOptions = {
-        from: "delo-vkusa22@yandex.ru",
+          from: "delo-vkusa22@yandex.ru",
           to: "nk1389074@gmail.com",
           subject: req_data.title,
           html: html,
-        dsn: {
-        id: '#####',
-        return: 'full',
-        notify: 'success',
-        recipient: `${req_data.email}`
-        },	
+          dsn: {
+            id: '#####',
+            return: 'full',
+            notify: 'success',
+            recipient: `${req_data.email}`
+          },	
         };
         // verify connection configuration
         /*transporter.verify(function (error, success) {

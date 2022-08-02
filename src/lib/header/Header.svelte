@@ -17,7 +17,10 @@
     </a>
     <div class="flex flex-col text-center">
       <span class="font-bold text-xl mb-2 leading-none text-[#ab5252]"><i>Красота, которую можно попробовать на вкус !</i></span>
-      <div class="flex items-start h-10 w-auto 2xl:w-[640px] bg-white border border-solid border-[#a4a099] rounded-lg shadow-headerShadow">
+      <div
+        use:clickOutside
+        on:click-outside={() => search = ''}
+        class="flex items-start h-10 w-auto 2xl:w-[640px] bg-white border border-solid border-[#a4a099] rounded-lg shadow-headerShadow">
         <button on:click="{() => handleEvent('search')}" class="py-[6px]"><i class="fas fa-search text-[#a4a099] self-center ml-2"></i></button>
         <input list="search" type="text" placeholder="Введите название или выберите из списка..." bind:value="{search}" on:blur={handleChange} class="self-center h-9 mx-1 w-full border-none placeholder:font-normal placeholder:text-[#a4a099] placeholder:text-sm placeholder:not-italic" />
         <datalist id="search">
@@ -174,15 +177,17 @@
   import { createEventDispatcher } from 'svelte';
   import { 
     modalId as ident, 
-    amountOrder as count, form 
+    amountOrder as count, 
+    form, 
+    dataGallery 
   } from '../../stores/app';
   import {
     isProfileMenuOpen,
     toggleProfileMenu,
   } from '../../stores/menus'
-  import { clickOutside } from '$lib/ioevents/click'
-  import { keydownEscape } from '$lib/ioevents/keydown'
-  //import type { DataGallery } from '$lib/types';
+  import { clickOutside } from '$lib/ioevents/click';
+  import { keydownEscape } from '$lib/ioevents/keydown';
+  import type { DataGallery } from '$lib/types';
   import Account from '$lib/Account.svelte';
   import Menu from '$lib/Menu.svelte';
   import ToggleTheme from '$lib/templates/Admin/ToggleTheme.svelte';
@@ -190,9 +195,9 @@
 
   const dispatch = createEventDispatcher();
   
-  //export let bqt: DataGallery[] = [];
-  //export let bskts: DataGallery[] = [];
   export let user: any;
+  export let tag = 'Зефир';
+
   const { photo, first_name, last_name } = user;
 
   const field_empty = "Поле не заполнено.";
@@ -201,12 +206,18 @@
   let isLogin = '';
   let widthWin: number;
   let search = '';
-  let dataSearch: string[] = [];
-  //let zefirFlowers = bskts.length !== 0 && bqt.length !== 0 ? [...bskts, ...bqt] : bskts.length === 0 && bqt.length !== 0 ? [...bqt] : bskts.length !== 0 && bqt.length === 0 ? [...bskts] : [];
+  let dataSearch: any[] = [];
+  let products:DataGallery[] = [];
   let errors = {name: '', };
-  let avatar = 'my_photo.jpg'
+  let avatar = 'my_photo.jpg';
+
+  for (let v of $dataGallery) {
+    for (let t of v.categories) {
+      products = [...products, ...t.products];
+    };
+  };
   
-  //zefirFlowers.map(v =>  dataSearch.push(v.name));
+  products.map(v =>  dataSearch = [...dataSearch, v.name]);
 
   const handleChange = () => {
     console.log('***handleChange***');
@@ -215,8 +226,11 @@
   };
 
   const handleEvent = (ident: string) => {
+    console.log('***handleEvent***');
+    let prd:DataGallery = {};
+    products.map((v: DataGallery) => {if (v.name === search) prd = v});
     dispatch('product', {
-	    name: search,
+	    product: prd,
       searchIdent: ident
 	  });
   };

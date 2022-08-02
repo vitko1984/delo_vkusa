@@ -38,33 +38,36 @@
   </div>
 </div>
 
-<script lang="ts">  
-  import moment from 'moment';  
+<script lang="ts">   
   import type { DataGallery } from '$lib/types';  
-  import { form, users } from '../../stores/app';
+  import { 
+    form, 
+    users, 
+    galleryRatings as rtngs, 
+    dataGallery } from '../../stores/app';
   import Rating from './Rating.svelte';
 
   export let product: DataGallery;
-  export let rtngs: DataGallery[];
-  export let ctgrs: DataGallery[];
 
   let comments = [{name: '', comment: '',  date: '', } ];
   let userName = '';
   let categoryName = 'Вкусняшка';
+  let ctgrs: DataGallery[] = [];
   
   product = {...product, ratings: [0, 0, ], };
-  for (let j = 0; j < rtngs.length; j++) {
-    if (new RegExp(rtngs[j].productName).test(product.name)) {
-      product.ratings = [...product.ratings, rtngs[j].rating];
+  for (let j = 0; j < $rtngs.length; j++) {
+    if (new RegExp($rtngs[j].productName).test(product.name)) {
+      product.ratings = [...product.ratings, $rtngs[j].rating];
     };
     $users.map(t => {
-      if (t.id === rtngs[j].userId) userName = t.name;  
-      if (rtngs[j].productName === `${product.name}|${t.uid}`) {
-        comments = [...comments, {name: userName, comment: rtngs[j].comment, date: moment(rtngs[j].updatedAt).format('DD-MM-YYYY HH:mm')}];
+      if (t.id === $rtngs[j].userId) userName = t.name;  
+      if ($rtngs[j].productName === `${product.name}|${t.uid}`) {
+        comments = [...comments, {name: userName, comment: $rtngs[j].comment, date: $rtngs[j].updatedAt.slice(0, 10)}];
       };
     });
   };
 
+  $dataGallery.map(v => ctgrs = [...ctgrs, ...v.categories]);
   ctgrs.map(v => {if (v.id === product.categoryId) categoryName = v.name});
 
   $form.label = 'В корзину';
@@ -72,5 +75,3 @@
   $: console.log('Продукты из Layout: ', product);
   $: console.log('Категории из Layout: ', ctgrs);
 </script>
-
-<style lang="postcss"></style>
