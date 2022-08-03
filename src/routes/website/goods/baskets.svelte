@@ -12,7 +12,7 @@
 </svelte:head>
       
 <div class="container flex flex-col items-center">
-  <span class="font-black text-4xl text-[#ab8c52]">
+  <span class="font-black text-4xl text-amber-200">
     <i>Зефирная корзина - красиво и вкусно!</i>
   </span>
   <Gallery {...caption} />

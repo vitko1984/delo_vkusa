@@ -13,16 +13,18 @@
   </script>
 </svelte:head>
 
-<div class="container py-6 pl-[100px] 2xl:pl-4">            
-  <picture>
-    <img src="/contacts.png" alt="Контакты" class="rounded-sm w-[640px] h-[320px]">
-  </picture>
+<div class="container grid grid-rows-3 pb-4">
+  <div class="justify-self-center grid bg-white opacity-70 rounded-lg w-1/2 h-3/4 border-2 border-solid border-amber-200">            
+    <picture class="justify-self-center">
+      <img src="/contacts.png" alt="Контакты">
+    </picture>
+  </div>
 
-  <div class="flex flex-col items-start">
+  <div class="flex flex-col items-start bg-white w-1/2 h-4/5 border-2 border-solid border-amber-200 p-4  rounded-lg">
     <span class="font-black text-[32px] leading-10 py-2">Контакты</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Ваши вопрсы и предложения мы будем рады получить по следующим адресам:</span>
-    <div class="grid grid-cols-2 gap-4">
-      <div class="grid grid-rows-4 gap-4">
+    <div class="flex justify-between w-full">
+      <div class="grid grid-rows-4 gap-4 mr-4">
         <div class="flex items-center">
           <i class="fa-solid fa-location-dot"></i>
           <i class="text-[#ab8c52] font-black text-sm leading-[22px] ml-2">г.Аксай, ул.Калинина д.18</i>
@@ -40,11 +42,11 @@
           <i class="text-[#ab8c52] font-black text-sm leading-[22px] ml-2">пн.-сб. 09.00-18.00</i>  
         </div>
       </div>
-      <div id="map" class="block w-[312px] h-[200px]"></div>
+      <div id="map" class="block w-full min-h-[120px] min-w-[220px] mb-4"></div>
     </div>            
   </div>
 
-  <div class="flex flex-col items-start mt-[70px]">
+  <div class="justify-self-end flex flex-col items-start bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
     <span class="font-black text-[32px] leading-10 py-2">Обратная связь</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Отправьте Ваш вопрос, комментарий, пожелание прямо с сайта.</span>
     <div class="grid grid-rows-[54px_54px_120px] gap-4 w-[640px]">
@@ -96,7 +98,7 @@
     const isNoErrors = $form.name.length === 0 || $form.email.length === 0 || 
       ($form.name.length > 0 && $form.name.length <= 1) || ($form.email.length > 0 && !/@/.test($form.email)) ? false : true;
     if (isNoErrors) {
-      const res = await fetch('/goods/user', {method: 'POST', body: JSON.stringify({title: 'Комментарий "Контакты"', name: $form.name, email: $form.email, wish: wish || wish.length !== 0 ? wish : ''}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+      const res = await fetch('/api/user', {method: 'POST', body: JSON.stringify({title: 'Комментарий "Контакты"', name: $form.name, email: $form.email, wish: wish || wish.length !== 0 ? wish : ''}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
       if (res.ok) {
         const result = await res.json();
         console.log('Ответ сервера(HandleSubmit): ', result.msg);

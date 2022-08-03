@@ -22,7 +22,7 @@
   <title>Домашняя</title>
 </svelte:head>
   
-<div class="container">
+<div class="container flex flex-col items-center">
   <section>
 	  <div class="welcome">
 	    <picture>
@@ -31,22 +31,24 @@
 	    </picture>
 	  </div>	
   </section>
-  <span class="font-black text-4xl text-[#ab8c52]">
+
+  <span class="font-black text-4xl text-amber-200">
 	<i>Добро пожаловать в сладкий мир зефирных цветов !</i>
   </span>
-  <div class="grid grid-cols-[560px_minmax(80px,_1fr)] py-4">
+
+  <div class="flex items-center flex-col max-w-screen-md rounded-lg border-2 border-solid border-amber-200 bg-white p-1 mt-5">
     <div class="carousel">
       {#each zefirFlowers as item, idx}
         <div id="{String(idx)}" class="carousel-item relative w-full">
-          <img src="/Товары/{item.photo}" alt="Фото" class="w-auto rounded-lg border-2 border-solid border-[#ab8c52]">
+          <img src="/Товары/{item.photo}" alt="Фото" class="w-auto">
           <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a href="#{idx === 0 ? zefirFlowers.length - 1 : idx - 1}" sveltekit:noscroll class="btn btn-circle bg-[#ab8c52] border-white">❮</a>
-            <a href="#{idx === zefirFlowers.length - 1 ? 0 : idx + 1}" sveltekit:noscroll class="btn btn-circle bg-[#ab8c52] border-white">❯</a>
+            <a href="#{idx === 0 ? zefirFlowers.length - 1 : idx - 1}" sveltekit:noscroll class="btn btn-circle bg-[#ab8c52] hover:bg-amber-300 border-white">❮</a>
+            <a href="#{idx === zefirFlowers.length - 1 ? 0 : idx + 1}" sveltekit:noscroll class="btn btn-circle bg-[#ab8c52] hover:bg-amber-300 border-white">❯</a>
           </div>
         </div>
       {/each}
     </div>
-    <div class="p-4 ml-6 border-2 rounded-lg border-solid border-[#ab8c52] text-left text-sm">
+    <div class="p-4 text-left text-lg bg-gray-50">
       <p><i><b>Хочешь порадовать родных, близких или коллег, но не знаешь как?!</b></i></p>
       <p><i>Закажи зефирный букет- это отличный и оригинальный подарок на любой случай или праздник.</i></p>
       <p><i>Удивительно нежный зефир никого не оставит равнодушным.</i></p>
@@ -55,7 +57,7 @@
       <p><i>- на второй букет скидка 10%</i></p>
       <p><i>- индивидуальные скидки для родительского комитета</i></p>
     </div>
-  </div> 
+  </div>
 </div>
   
 <style lang="postcss">

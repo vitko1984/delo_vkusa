@@ -18,16 +18,13 @@
 	<title>О нас</title>
 </svelte:head>
 
-<div class="container py-6">
-  <div class="grid grid-cols-[560px_minmax(80px,_1fr)]">
+<div class="container pb-4 flex flex-col items-center">
+  <div class="flex items-center flex-col max-w-screen-md rounded-lg border-2 border-solid border-amber-200 bg-white p-1 mt-5">	
 	<picture>
-      <img src="/20220215_171309-01.jpeg" alt="Фото" class="rounded-lg border-2 border-solid border-[#ab8c52]">
-    </picture>
-	<div class="flex flex-col ml-6 p-4 border-2 rounded-lg border-solid border-[#ab8c52]">
-	  <span class="font-black text-[32px] text-[#ab8c52] leading-10 py-2">
-		<i>О нас</i>
-	  </span>	
-	  <div class="text-left text-sm">
+	  <img src="/20220215_171309-01.jpeg" alt="Фото" class="rounded-lg border-2 border-solid border-[#ab8c52]">
+	</picture>
+	
+	<div class="text-left text-lg mx-4">
 		<i>
 		  <b>Всем привет!</b>	
 		</i>
@@ -56,9 +53,8 @@
 			<b>Кстати, корзинки я тоже делаю сама.</b>  
 		  </i>
 		</p>
-	  </div>	
-	</div>  
-  </div>	
+	  </div>
+  </div>
 </div>
 
 <style lang="postcss">

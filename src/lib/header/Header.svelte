@@ -72,6 +72,8 @@
       <div class="relative">
         <button
           id="nav-profile-photo"
+          tabindex="0"
+          title="{userName}"
           class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
           on:click={toggleProfileMenu}
           use:keydownEscape
@@ -82,14 +84,14 @@
           <img
             class="object-cover w-8 h-8 rounded-full"
             src="/{avatar}"
-            alt="{first_name} {last_name}"
+            alt="Аватар"
             aria-hidden="true"
           />
         </button>
         {#if $isProfileMenuOpen}
           <ul
             use:clickOutside={['nav-profile-photo']}
-            on:click-outside={closeProfileMenu}
+            on:click-outside={toggleProfileMenu}
             use:keydownEscape
             on:keydown-escape={closeProfileMenu}
             class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
@@ -179,11 +181,14 @@
     modalId as ident, 
     amountOrder as count, 
     form, 
-    dataGallery 
+    dataGallery,
+    users,
+    uid 
   } from '../../stores/app';
   import {
     isProfileMenuOpen,
     toggleProfileMenu,
+    closeProfileMenu
   } from '../../stores/menus'
   import { clickOutside } from '$lib/ioevents/click';
   import { keydownEscape } from '$lib/ioevents/keydown';
@@ -194,11 +199,6 @@
   import delo_vkusa from '$lib/pictures/delo_vkusa.jpg';
 
   const dispatch = createEventDispatcher();
-  
-  export let user: any;
-  export let tag = 'Зефир';
-
-  const { photo, first_name, last_name } = user;
 
   const field_empty = "Поле не заполнено.";
   const name_incorrect = "Поле должно содержать не менее 2-х символов.";
@@ -209,13 +209,19 @@
   let dataSearch: any[] = [];
   let products:DataGallery[] = [];
   let errors = {name: '', };
-  let avatar = 'my_photo.jpg';
+  let avatar = '';
+  let userName = 'Ваше имя';
 
   for (let v of $dataGallery) {
     for (let t of v.categories) {
       products = [...products, ...t.products];
     };
   };
+
+  $users.map(v => {if (v.uid === $uid) {
+    avatar = v.photo;
+    userName = v.name;
+  }});
   
   products.map(v =>  dataSearch = [...dataSearch, v.name]);
 

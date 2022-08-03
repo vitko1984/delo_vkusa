@@ -2,8 +2,8 @@
   <title>Оплата и доставка</title>
 </svelte:head>
 
-<div class="container py-6">
-  <div class="flex flex-col items-start">
+<div class="container grid pb-4">
+  <div class="flex flex-col items-start bg-white w-1/2 border-2 border-solid border-amber-200 p-4  rounded-lg">
     <div class="flex">
       <picture>
         <img src="/payment.png" alt="Оплата" class="rounded-sm w-[100px] h-[100px]">
@@ -18,7 +18,7 @@
     </ol>      
   </div>
   
-  <div class="flex flex-col items-start mt-[70px]">
+  <div class="justify-self-end flex flex-col items-start mt-[70px] bg-white w-1/2 border-2 border-solid border-amber-200 p-4  rounded-lg">
     <div class="flex">
       <picture>
         <img src="/delivery.png" alt="Доставка" class="rounded-sm w-[100px] h-[100px]">

@@ -58,7 +58,7 @@
       $form.phone = v.phone ? v.phone : '';
       $form.address = v.address ? v.address : '';
     };
-    $users = [...$users, {id: v.id, uid: v.uid, name: v.name, email: v.email, phone: v.phone, address: v.address}];
+    $users = [...$users, {id: v.id, uid: v.uid, name: v.name, email: v.email, phone: v.phone, address: v.address, photo: v.avatar}];
     $galleryRatings = [...$galleryRatings, ...v.posts];
     $basket = [...$basket, ...v.basket];
   };
@@ -132,6 +132,15 @@
       if (res.ok) {
         const result = await res.json();
         console.log('Ответ сервера(PostUserBasket): ', result.msg);
+        $cnt = 0;
+        $form.total = 0;
+        result.body.basket.map(v => {
+          if (new RegExp($uid).test(v.productName)) {
+            $form.total += v.price * v.amount; 
+            $cnt += v.amount;
+          };
+        });
+        $basket = result.body.basket;
         $ident = '';
         return {
           message: result.msg
@@ -169,8 +178,8 @@
 </script>
 
 <div class="page">
-  <Header {user}  on:product="{headerEvent}"/>
-  <main>
+  <Header on:product="{headerEvent}"/>
+  <main class="bg-cover bg-center" style="background-image: url(/back.jpg)">
     <slot />
   </main>
 
@@ -192,8 +201,8 @@
     </Dialog>
   {/if}
 
-  <footer class="flex flex-col text-center py-5">
-    <p>Разработка - "<a href="https://delo_vkusa.ru" target="_blank" class="focus:no-underline">Дело вкуса</a>"</p>
+  <footer class="flex flex-col text-center py-5 bg-[#ab5252]">
+    <p>Разработка - "<a href="https://delo_vkusa.ru" target="_blank" class="focus:no-underline text-blue-400">Дело вкуса</a>"</p>
     <p>Эл.почта: nk1389074@gmail.com</p>
     <p>Телефон: +7 988 553 63 43</p>
     <p class="w-full text-center border-t border-solid border-white">Авторские права "Дело вкуса"<i>©</i>2022. Все права защищены.</p> 

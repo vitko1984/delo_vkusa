@@ -1,4 +1,4 @@
-<div class="grid grid-cols-4 gap-5 my-5 w-[1300px]">
+<div class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 my-5 max-w-7xl">
   {#each products as item, idx}
     <div class="border border-[#ab8c52] p-1 rounded-md bg-red-50">
       <span class="text-[#ab8c52] font-../stores/storesmb-1">

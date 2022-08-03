@@ -80,7 +80,7 @@ export const GET: import('@sveltejs/kit').RequestHandler = async ({params, local
   if (params.slug === 'get_users') {
 		console.log('*server_GetUsers*', locals.userid); 
 		try {
-			const reqObj = {select: {id: true, uid: true, name: true, email: true, phone: true, address: true, posts: {select: {productName: true, rating: true, comment: true, updatedAt: true, userId: true}, }, basket: true,  profile: true}};
+			const reqObj = {select: {id: true, uid: true, name: true, email: true, phone: true, address: true, avatar: true, posts: {select: {productName: true, rating: true, comment: true, updatedAt: true, userId: true}, }, basket: true,  profile: true}};
 			const users = await api('user', 'get_many', reqObj);
 			//console.log('getUsers: ', users.body);
 			if (!users) {
