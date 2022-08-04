@@ -83,7 +83,7 @@
         >
           <img
             class="object-cover w-8 h-8 rounded-full"
-            src="/{avatar}"
+            src="{avatar}"
             alt="Аватар"
             aria-hidden="true"
           />
