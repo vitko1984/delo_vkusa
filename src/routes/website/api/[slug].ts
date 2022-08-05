@@ -25,10 +25,12 @@ const transporter = nodemailer.createTransport({
 	secure: true, // use TLS
 	auth: {
 	  //user: googleUser,
-	  user: yandexUser,
+	  //user: yandexUser,
+    user: "delo-vkusa22@yandex.ru",
 	  //user: testEmailAccount.user,
 	  //pass: googlePass,
-	  pass: yandexPass,
+	  //pass: yandexPass,
+    pass: "konditer22"
 	  //pass: testEmailAccount.pass,
 	},
 });
