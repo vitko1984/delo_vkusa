@@ -233,6 +233,7 @@
 
   const handleEvent = (ident: string) => {
     console.log('***handleEvent***');
+    if (search.length === 0) return;
     let prd:DataGallery = {};
     products.map((v: DataGallery) => {if (v.name === search) prd = v});
     dispatch('product', {
