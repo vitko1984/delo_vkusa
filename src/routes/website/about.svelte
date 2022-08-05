@@ -19,6 +19,9 @@
 </svelte:head>
 
 <div class="container pb-4 flex flex-col items-center">
+  <span class="font-black text-4xl text-amber-200">
+	<i>Добро пожаловать в сладкий мир зефирных цветов !</i>
+  </span>
   <div class="flex items-center flex-col max-w-screen-md rounded-lg border-2 border-solid border-amber-200 bg-white p-1 mt-5">	
 	<picture>
 	  <img src="/20220215_171309-01.jpeg" alt="Фото" class="rounded-lg border-2 border-solid border-[#ab8c52]">
@@ -28,11 +31,6 @@
 		<i>
 		  <b>Всем привет!</b>	
 		</i>
-		<p>
-		  <i>  
-			Добро пожаловать в сладкий мир зефирных цветов⚘⚘⚘
-		  </i>	
-		</p>
 		<p>
 		  <i>
 		    Меня зовут Инна, и я занимаюсь зефирной флористикой. Создаю красоту, которую можно попробовать на вкус.

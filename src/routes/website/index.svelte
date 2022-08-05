@@ -32,10 +32,6 @@
 	  </div>	
   </section>
 
-  <span class="font-black text-4xl text-amber-200">
-	<i>Добро пожаловать в сладкий мир зефирных цветов !</i>
-  </span>
-
   <div class="flex items-center flex-col max-w-screen-md rounded-lg border-2 border-solid border-amber-200 bg-white p-1 mt-5">
     <div class="carousel">
       {#each zefirFlowers as item, idx}
