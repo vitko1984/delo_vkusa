@@ -79,7 +79,6 @@
     };
     if (vl[0] === 'Применить') {
       const res = await fetch('/api/dialog', {method: 'POST', body: JSON.stringify({name: $form.name ? $form.name : $form.input, comment: $form.textarea, rating: $form.rating, productName: products[vl[1]].name}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
-      console.log(await res.json());
       if (res.ok) {
         $galleryRatings = [];
         const result = await res.json();
