@@ -154,7 +154,7 @@
 
   const handleSubmit = async () => {
     console.log('***HandleSubmit***');
-    const res = await fetch('/api/user', {method: 'POST', body: JSON.stringify(dataUser), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+    const res = await fetch('/api/user', {method: 'post', body: JSON.stringify(dataUser), headers: {accept: 'application/json'}, credentials: 'include'});
     if (res.ok) {
       const result = await res.json();
       if (result.isMail) $ident = '';
