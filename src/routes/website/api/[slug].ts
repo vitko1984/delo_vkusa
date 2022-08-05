@@ -1,5 +1,5 @@
 import { api } from '../../_db-api';
-import type { Edit } from '$lib/types';
+import type { Edit, EndpOutp } from '$lib/types';
 import nodemailer from 'nodemailer';
 
 const yandexUser = import.meta.env.VITE_MAIL_USERNAME;
@@ -148,11 +148,12 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
   if (params.slug === 'basket') {
     try {
       console.log('ServerBasket: ', req_data);
+      const basketData = {price: req_data.price, amount: req_data.amount, productName: `${req_data.productName}|${locals.userid}`};
       const basket = await api('basket', 'get', {where: {productName: `${req_data.productName}|${locals.userid}`}});
       console.log('ServerBasketBody: ', basket.body);
-      const reqObj = {where: task, data: {basket: {upsert: {where: {productName: `${req_data.productName}|${locals.userid}`}, create: {price: req_data.price, amount: req_data.amount, productName: `${req_data.productName}|${locals.userid}`, },  
+      const reqObj = {where: task, create: {uid: locals.userid, basket: {create: basketData}}, update: {basket: {upsert: {where: {productName: `${req_data.productName}|${locals.userid}`}, create: basketData,  
       update: {price: req_data.price, amount: basket.body ? req_data.amount + basket.body.amount : req_data.amount, }}}}, select: {uid: true, basket: {select: {productName: true, price: true, amount: true}}}};
-      const user: EndpOutp = await api('user', 'update', reqObj);
+      const user:EndpOutp = await api('user', 'upsert', reqObj);
       if (!user) {
       return {
         status: 204,
