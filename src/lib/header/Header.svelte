@@ -209,7 +209,7 @@
   let dataSearch: any[] = [];
   let products:DataGallery[] = [];
   let errors = {name: '', };
-  let avatar = '';
+  let avatar = 'user.png';
   let userName = 'Ваше имя';
 
   for (let v of $dataGallery) {
