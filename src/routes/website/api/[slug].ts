@@ -1,9 +1,10 @@
 import { api } from '../../_db-api';
+//import tg_api  from '../../_telegram-api';
 import type { Edit, EndpOutp } from '$lib/types';
-import nodemailer from 'nodemailer';
+//import nodemailer from 'nodemailer';
 
-const yandexUser = import.meta.env.VITE_MAIL_USERNAME;
-const yandexPass = import.meta.env.VITE_MAIL_PASSWORD;
+//const yandexUser = import.meta.env.VITE_MAIL_USERNAME;
+//const yandexPass = import.meta.env.VITE_MAIL_PASSWORD;
 //const googleUser = import.meta.env.VITE_GOOGLE_MAIL_USERNAME;
 //const googlePass = import.meta.env.VITE_GOOGLE_MAIL_PASSWORD;
 
@@ -16,7 +17,7 @@ interface DataPost  extends Edit {
 };
 
 //let testEmailAccount = nodemailer.createTestAccount()
-const transporter = nodemailer.createTransport({
+/*const transporter = nodemailer.createTransport({
 	//pool: true,
 	//service: 'gmail',
 	service: 'yandex',
@@ -25,15 +26,13 @@ const transporter = nodemailer.createTransport({
 	secure: true, // use TLS
 	auth: {
 	  //user: googleUser,
-	  //user: yandexUser,
-    user: "delo-vkusa22@yandex.ru",
+	  user: yandexUser,
 	  //user: testEmailAccount.user,
 	  //pass: googlePass,
-	  //pass: yandexPass,
-    pass: "konditer22"
+	  pass: yandexPass,
 	  //pass: testEmailAccount.pass,
 	},
-});
+});*/
 
 // GET /goods.json
 export const GET: import('@sveltejs/kit').RequestHandler = async ({params, locals}) => {
@@ -181,34 +180,37 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
       console.log('*ServerUser: *', req_data);
       //let mail_success = false;
       if (req_data.title === 'Заказ' || req_data.title === 'Перезвонить' || req_data.title === 'Комментарий "Контакты"') {
-      let html = '';
+        let html = '';
         if (req_data.envelope) {
-        let envlpCntnt = '';
-        req_data.envelope.map(v => {
-          envlpCntnt += `
-            <p><strong>Продукт: </strong><i>${(v.productName).replace(`|${locals.userid}`, '')}</i></p>
-            <p><strong>Цена: </strong><i>${v.price}</i></p>
-            <p><strong>Количество: </strong><i>${v.amount}</i></p>
-            <p><strong>********************</strong></p>`;
-        });
-        html = `<p><ins>Заказчик: </ins><i>${req_data.name}</i></p>
-          <p><ins>Телефон: </ins><i>${req_data.phone}</i></p>
-          <p><ins>Эл. почта: </ins><i>${req_data.email}</i></p>
-          <p><ins>Адрес: </ins><i>${req_data.address}</i></p>
-            <ins>Детали заказа:</ins>
-          <p>${envlpCntnt}</p>
-            <p><b><u>Общая стоимость:</u></b><i>${req_data.total}</i></p>`;
+        //if (req_data.title === 'Заказ') { 
+          let envlpCntnt = '';
+          req_data.envelope.map(v => {
+            envlpCntnt += `
+              Продукт: ${(v.productName).replace(`|${locals.userid}`, '')}
+              Цена: ${v.price}
+              Количество: ${v.amount}`;
+          });
+          html = `***${req_data.title}***
+             Заказчик: ${req_data.name} 
+             Телефон: ${req_data.phone} 
+             Эл.почта: ${req_data.email} 
+             Адрес доставки: ${req_data.address} 
+            **Детали заказа:
+            ${envlpCntnt}**
+            Общая стоимость: ${req_data.total}`;
         } else if (req_data.title === 'Перезвонить') {
-        html = `<p><ins>Клиент: </ins><i>${req_data.name}</i></p>
-        <p><ins>Телефон: </ins><i>${req_data.phone}</i></p>
-        <p><ins>Вемя звонка, пожелания: </ins><i>${req_data.wish}</i></p>`;	
-      } else if (req_data.title === 'Комментарий "Контакты"') {
-        html = `<p><ins>Клиент: </ins><i>${req_data.name}</i></p>
-        <p><ins>Эл. почта: </ins><i>${req_data.email}</i></p>
-        <p><ins>Комментарий, пожелание: </ins><i>${req_data.wish}</i></p>`;
-      };
+          html = `***${req_data.title}***
+            Клиент: ${req_data.name}
+            Телефон: ${req_data.phone}
+            Вемя звонка, пожелания: ${req_data.wish}`;	
+        } else if (req_data.title === 'Комментарий "Контакты"') {
+          html = `***${req_data.title}***
+            Клиент: ${req_data.name}
+            Эл.почта: ${req_data.email}
+            Комментарий, пожелание: ${req_data.wish}`;
+        };
   
-        const mailOptions = {
+        /*const mailOptions = {
           from: "delo-vkusa22@yandex.ru",
           to: "nk1389074@gmail.com",
           subject: req_data.title,
@@ -219,7 +221,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
             notify: 'success',
             recipient: `${req_data.email}`
           },	
-        };
+        };*/
         // verify connection configuration
         /*transporter.verify(function (error, success) {
         if (error) {
@@ -228,13 +230,30 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
             console.log("*Почтовый сервер готов принимать ваши сообщения*");
         };
           });*/
-        transporter.sendMail(mailOptions, err => {
-        if (err) {
-          console.log('*Почтовое сообщение не удалось отправить.*');
-          return;
+        /*transporter.sendMail(mailOptions, err => {
+          if (err) {
+            console.log('*Почтовое сообщение не удалось отправить.*');
+            return;
+          };
+          console.log('*Почтовое сообщение отправлено.*');
+        });*/
+
+        try {
+          const Token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+          const url = `https://api.telegram.org/bot${Token}/sendMessage?chat_id=${chatId}&text=${html}`;
+          const res = await fetch(url);
+          return  {
+            body: {
+              content: await res.json(),
+              isMail: true,
+              status: 200,
+              msg: '*Почтовое сообщение отправлено.*',
+            },  
+          };
+        } catch(e) {
+          console.error(e);
+          return null;
         };
-        console.log('*Почтовое сообщение отправлено.*');
-        });
       };
       
       const reqObj = {where: task, create: {name: req_data.name, uid: locals.userid, email: req_data.email, phone: req_data.phone, address: req_data.address, }, update: {name: req_data.name, email: req_data.email, phone: req_data.phone, address: req_data.address, }, select: {uid: true}};
@@ -252,7 +271,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
       console.log('Ошибка БД: ', e.name);
       console.log('Сообщение об ошибке: ', e.message);
     }; 	
-    };
+  };
 };
 
 // DELETE /goods/:uid.json
