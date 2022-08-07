@@ -1,10 +1,10 @@
 import { api } from '../../_db-api';
 //import tg_api  from '../../_telegram-api';
 import type { Edit, EndpOutp } from '$lib/types';
-import nodemailer from 'nodemailer';
+//import nodemailer from 'nodemailer';
 
-const yandexUser = import.meta.env.VITE_MAIL_USERNAME;
-const yandexPass = import.meta.env.VITE_MAIL_PASSWORD;
+//const yandexUser = import.meta.env.VITE_MAIL_USERNAME;
+//const yandexPass = import.meta.env.VITE_MAIL_PASSWORD;
 //const googleUser = import.meta.env.VITE_GOOGLE_MAIL_USERNAME;
 //const googlePass = import.meta.env.VITE_GOOGLE_MAIL_PASSWORD;
 
@@ -16,8 +16,8 @@ interface DataPost  extends Edit {
   envelope?: Edit[];
 };
 
-let testEmailAccount = nodemailer.createTestAccount()
-const transporter = nodemailer.createTransport({
+//let testEmailAccount = nodemailer.createTestAccount()
+/*const transporter = nodemailer.createTransport({
 	//pool: true,
 	//service: 'gmail',
 	service: 'yandex',
@@ -32,7 +32,7 @@ const transporter = nodemailer.createTransport({
 	  pass: yandexPass,
 	  //pass: testEmailAccount.pass,
 	},
-});
+});*/
 
 // GET /goods.json
 export const GET: import('@sveltejs/kit').RequestHandler = async ({params, locals}) => {
@@ -210,7 +210,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
             Комментарий, пожелание: ${req_data.wish}`;
         };
   
-        const mailOptions = {
+        /*const mailOptions = {
           from: "delo-vkusa22@yandex.ru",
           to: "nk1389074@gmail.com",
           subject: req_data.title,
@@ -221,7 +221,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
             notify: 'success',
             recipient: `${req_data.email}`
           },	
-        };
+        };*/
         // verify connection configuration
         /*transporter.verify(function (error, success) {
         if (error) {
@@ -230,17 +230,16 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
             console.log("*Почтовый сервер готов принимать ваши сообщения*");
         };
           });*/
-        await new Promise ((resolve, reject) => {
-          transporter.sendMail(mailOptions, err => {
-            if (err) {
-              console.log('*Почтовое сообщение не удалось отправить.*');
-              return;
-            };
-            console.log('*Почтовое сообщение отправлено.*');
-          });
-        });
 
-        /*try {
+        /*transporter.sendMail(mailOptions, err => {
+          if (err) {
+            console.log('*Почтовое сообщение не удалось отправить.*');
+            return;
+          };
+          console.log('*Почтовое сообщение отправлено.*');
+        });*/
+
+        try {
           const Token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
           const url = `https://api.telegram.org/bot${Token}/sendMessage?chat_id=${chatId}&text=${html}`;
           const res = await fetch(url);
@@ -255,7 +254,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
         } catch(e) {
           console.error(e);
           return null;
-        };*/
+        };
       };
       
       const reqObj = {where: task, create: {name: req_data.name, uid: locals.userid, email: req_data.email, phone: req_data.phone, address: req_data.address, }, update: {name: req_data.name, email: req_data.email, phone: req_data.phone, address: req_data.address, }, select: {uid: true}};
