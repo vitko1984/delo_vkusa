@@ -8,7 +8,8 @@ export default const botMessage = async (request: VercelRequest, response: Verce
     // Создаем новый обработчик бота с токеном
     // что дал нам Botfather
     // Использовать переменную окружения, чтобы не показывать ее в нашем коде
-    const bot = new TelegramBot(token, { polling: true });
+    //const bot = new TelegramBot(token, { polling: true });
+    const bot = new TelegramBot('1479357668:AAFtfLRCDmRmDNyHAk16XXuqq18WsPu4OOc')
     // Получаем тело POST-запроса, отправленного из Telegram
     const { body } = request;
     // Убедитесь, что это отправляемое сообщение
