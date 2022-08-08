@@ -14,7 +14,7 @@ module.exports = async (request: VercelRequest, response: VercelResponse) => {
     // Получаем тело POST-запроса, отправленного из Telegram
     const { body } = request;
     // Убедитесь, что это отправляемое сообщение
-    /*if (body.message) {
+    if (body.message) {
       // Получаем идентификатор этого чата
       // и текст, который отправил пользователь
       const { chat: { id }, text } = body.message;
@@ -23,14 +23,14 @@ module.exports = async (request: VercelRequest, response: VercelResponse) => {
       const message = `✅ Спасибо за ваше сообщение: *"${text}"*\nхорошего дня! 👋🏻`;
       // Отправляем наше новое сообщение обратно в Markdown
       await bot.sendMessage(id, message, {parse_mode: 'Markdown'});
-    };*/
-    if (body.title === 'Заказ' || body.title === 'Перезвонить' || body.title === 'Комментарий "Контакты"') {
+    };
+    /*if (body.title === 'Заказ' || body.title === 'Перезвонить' || body.title === 'Комментарий "Контакты"') {
       let html = '';
       if (body.envelope) { 
         let envlpCntnt = '';
         body.envelope.map(v => {
           envlpCntnt += `
-            Продукт: ${v.productName/*.replace(`|${locals.userid}`, '')*/}\n
+            Продукт: ${v.productName.replace(`|${locals.userid}`, '')}\n
             Цена: ${v.price}\n
             Количество: ${v.amount}`;
         });
@@ -54,7 +54,7 @@ module.exports = async (request: VercelRequest, response: VercelResponse) => {
           Комментарий, пожелание: ${body.wish}`;
       };
       bot.sendMessage(userId, html, {parse_mode: 'Markdown'});
-    };
+    };*/
   } catch(error) {
     // Если произошла ошибка при отправке нашего сообщения, то мы
     // может войти в консоль Vercel
