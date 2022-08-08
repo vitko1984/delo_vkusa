@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import TelegramBot from 'node-telegram-bot-api';
 
-const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, userId = import.meta.env.VITE_TELEGRAM_UID;
+//const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, userId = import.meta.env.VITE_TELEGRAM_UID;
 
 export default const botMessage = async (request: VercelRequest, response: VercelResponse) => {
   try {
