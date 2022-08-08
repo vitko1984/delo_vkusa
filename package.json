@@ -14,6 +14,7 @@
 	},
 	"devDependencies": {
 		"@mdi/js": "^7.0.96",
+		"@netlify/functions": "^1.0.0",
 		"@prisma/client": "^4.1.1",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
