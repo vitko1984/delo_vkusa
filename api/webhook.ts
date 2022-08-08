@@ -3,7 +3,7 @@ import TelegramBot from 'node-telegram-bot-api';
 
 //const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, userId = import.meta.env.VITE_TELEGRAM_UID;
 
-export default const botMessage = async (request: VercelRequest, response: VercelResponse) => {
+module.exports = async (request: VercelRequest, response: VercelResponse) => {
   try {
     // Создаем новый обработчик бота с токеном
     // что дал нам Botfather
