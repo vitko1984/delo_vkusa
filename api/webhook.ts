@@ -1,7 +1,34 @@
-export default function handler(request: { body: any; query: any; cookies: any; }, response: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { body: any; query: any; cookies: any; }): void; new(): any; }; }; },){
-  response.status(200).json({
-    body: request.body,
-    query: request.query,
-    cookies: request.cookies,
-  });
-}
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+import TelegramBot from 'node-telegram-bot-api';
+
+const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, userId = import.meta.env.VITE_TELEGRAM_UID;
+
+export default const botMessage = async (request: VercelRequest, response: VercelResponse) => {
+  try {
+    // Создаем новый обработчик бота с токеном
+    // что дал нам Botfather
+    // Использовать переменную окружения, чтобы не показывать ее в нашем коде
+    const bot = new TelegramBot(token, { polling: true });
+    // Получаем тело POST-запроса, отправленного из Telegram
+    const { body } = request;
+    // Убедитесь, что это отправляемое сообщение
+    if (body.message) {
+      // Получаем идентификатор этого чата
+      // и текст, который отправил пользователь
+      const { chat: { id }, text } = body.message;
+      // Создаем сообщение для отправки обратно
+      // Мы можем использовать Markdown внутри этого
+      const message = `✅ Спасибо за ваше сообщение: *"${text}"*\nхорошего дня! 👋🏻`;
+      // Отправляем наше новое сообщение обратно в Markdown
+      await bot.sendMessage(id, message, {parse_mode: 'Markdown'});
+    };
+  } catch(error) {
+    // Если произошла ошибка при отправке нашего сообщения, то мы
+    // может войти в консоль Vercel
+    console.error('Ошибка отправки сообщения');
+    console.log(error.toString());
+  };
+  // Подтвердить сообщение с помощью Telegram
+  // отправив код состояния HTTP 200
+  response.send('OK');
+};
