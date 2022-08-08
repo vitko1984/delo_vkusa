@@ -1,5 +1,5 @@
 [build]
 
   command = "vite build"
-  publish = "build/"
-  functions = "functions/"
+  publish = ".svelte-kit/"
+  functions = "netlify/functions/"
