@@ -8,3 +8,4 @@
 
   command = "vite dev"
   targetPort = 3000
+  functions = "netlify/functions/"
