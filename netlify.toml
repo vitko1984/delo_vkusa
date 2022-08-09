@@ -2,7 +2,7 @@
 
   command = "vite build"
   publish = ".svelte-kit/"
-  functions = "functions/"
+  functions = "netlify/functions/"
 
 [dev]
 
