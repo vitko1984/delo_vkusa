@@ -2,10 +2,9 @@
 
   command = "vite build"
   publish = ".svelte-kit/"
-  functions = "netlify/functions/"
+  functions = "functions/"
 
 [dev]
 
   command = "vite dev"
   targetPort = 3000
-  functions = "netlify/functions/"
