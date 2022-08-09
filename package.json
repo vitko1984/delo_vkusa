@@ -2,7 +2,7 @@
 	"name": "delo-vkusa",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "NODE_OPTIONS=\"--inspect\" vite dev",
+		"dev": "NODE_OPTIONS=\"--inspect netlify functions:serve\" vite dev",
 		"build": "vite build",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
@@ -28,6 +28,7 @@
 		"cross-env": "^7.0.3",
 		"daisyui": "^2.20.0",
 		"moment": "^2.29.4",
+		"netlify-cli": "^10.15.0",
 		"node-fetch": "^3.2.10",
 		"node-telegram-bot-api": "^0.58.0",
 		"nodemailer": "^6.7.7",
