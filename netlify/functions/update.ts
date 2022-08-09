@@ -1,5 +1,6 @@
 import { Handler } from "@netlify/functions";
 //import sendMessage from '../../middleware/sendMessage';
+import fetch from 'node-fetch';
 
 const handler: Handler = async (event, context) => {
   console.log("Получил обновление от Telegram!", event.body);
