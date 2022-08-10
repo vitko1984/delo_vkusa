@@ -1,11 +1,14 @@
 [build]
 
   command = "vite build"
-  publish = ".svelte-kit/"
-  functions = "functions/"
+  publish = "build/"
 
 [dev]
 
   command = "vite dev"
-  functions = "functions/"
-  targetPort = 8080
+  targetPort = 3000
+
+[functions]
+
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
