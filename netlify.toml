@@ -1,7 +1,7 @@
 [build]
 
   command = "vite build"
-  publish = "build/"
+  publish = "build"
 
 [dev]
 
@@ -10,5 +10,4 @@
 
 [functions]
 
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
+  directory = "functions"
