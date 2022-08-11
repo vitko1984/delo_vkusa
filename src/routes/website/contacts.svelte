@@ -48,7 +48,7 @@
 
   <!-- svelte-ignore component-name-lowercase -->
   <form name="contacts" method="POST" netlify-honeypot="bot-field" data-netlify="true" class="justify-self-end flex flex-col items-start bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
-    <input type="hidden" name="form-name" value="netlify-form-example" />
+    <input type="hidden" name="form-name" value="contacts" />
     <span class="font-black text-[32px] leading-10 py-2">Обратная связь</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Отправьте Ваш вопрос, комментарий, пожелание прямо с сайта.</span>
     <div class="grid grid-rows-[54px_54px_120px] gap-4 w-[640px]">
@@ -66,7 +66,7 @@
       </div>
      <textarea type="text" name="wish" placeholder="Ваше сообщение" class="textarea textarea-bordered bg-blue-50 w-full placeholder:text-gray-400" bind:value="{wish}" />    
     </div>
-    <button class="button mt-6" on:click="{ handleSubmit }">Отправить</button>   
+    <button type="submit" class="button mt-6" on:click="{ handleSubmit }">Отправить</button>   
   </form>
 </div> 
 
