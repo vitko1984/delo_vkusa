@@ -68,7 +68,11 @@
     </div>
     <button type="submit" class="button mt-6" on:click="{ handleSubmit }">Отправить</button>   
   </form>
-</div> 
+</div>
+
+<script context="module">
+	export const prerender = true
+</script>
 
 <script lang="ts">
   import { form, isHandleErrors } from '../../stores/app';
