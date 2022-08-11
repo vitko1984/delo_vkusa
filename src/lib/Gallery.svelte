@@ -78,7 +78,7 @@
       $form.rating = defaultValue;
     };
     if (vl[0] === 'Применить') {
-      const res = await fetch('/api/dialog', {method: 'POST', body: JSON.stringify({name: $form.name ? $form.name : $form.input, comment: $form.textarea, rating: $form.rating, productName: products[vl[1]].name}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+      const res = await fetch('/goods/dialog', {method: 'POST', body: JSON.stringify({name: $form.name ? $form.name : $form.input, comment: $form.textarea, rating: $form.rating, productName: products[vl[1]].name}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
       if (res.ok) {
         $galleryRatings = [];
         const result = await res.json();
@@ -110,7 +110,7 @@
 
   const postBasket = async (data: object) => {
     console.log('***postBasket***');
-    const res = await fetch('/api/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+    const res = await fetch('/goods/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
     if (res.ok) {
       const result = await res.json();
       console.log('Ответ сервера(PostUserBasket): ', result.msg);
