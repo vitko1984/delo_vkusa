@@ -114,7 +114,7 @@
 <script context="module">
   /** @type {import('./[slug]').Load} */
   export const load = async ({ fetch }) => {
-    const products = await fetch('/api');
+    const products = await fetch('/goods');
     return { props: {
       get_prd: products.ok && (await products.json()),
     }};
@@ -214,7 +214,7 @@
         if (q.name === r.tag) tags[i].categories.push({name: r.name, products: r.products});
       });
     });
-    const res = await fetch('/api', {method: 'POST', body: JSON.stringify(tags), headers: {'Content-Type': 'application/json'}});
+    const res = await fetch('/goods', {method: 'POST', body: JSON.stringify(tags), headers: {'Content-Type': 'application/json'}});
     if (res.ok) {
       rw = {};
       const result = await res.json();
@@ -242,7 +242,7 @@
 
   const handleClearTable = async () => {
     console.log('***handleClearTable***');
-    const res = await fetch('/api', {method: 'DELETE'});
+    const res = await fetch('/goods', {method: 'DELETE'});
     if (res.ok) {
       rowTable = [];
       const result = await res.json();

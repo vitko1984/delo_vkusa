@@ -10,7 +10,6 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-  //url = "mysql://kfry1i99jswm:pscale_pw_R3YM57JCQL5k7KoOZQ4qKWYRl4QFJw6ya5TTZfHsg5s@zcwa5ix30k21.eu-central-1.psdb.cloud/delo-vkusa-db?sslaccept=strict"
   referentialIntegrity = "prisma"
 }
 

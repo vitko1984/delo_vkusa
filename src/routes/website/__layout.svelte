@@ -2,8 +2,8 @@
   /** @type {import('./__types/[slug]').Load} */
   export const load = async ({ fetch, session }) => {
     const { userid, message } = session;
-    const products = await fetch('/api/get_products');
-    const users = await fetch('/api/get_users');
+    const products = await fetch('/goods/get_products');
+    const users = await fetch('/goods/get_users');
     return { props: {
       usr: users.ok && (await users.json()),
       get_prd: products.ok && (await products.json()),
@@ -126,7 +126,7 @@
   const postBasket = async (data: object) => {
     console.log('***postBasket***');
     try {
-      const res = await fetch('/api/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+      const res = await fetch('/goods/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
       if (res.ok) {
         const result = await res.json();
         console.log('Ответ сервера(PostUserBasket): ', result.msg);
@@ -152,7 +152,7 @@
 
   const handleSubmit = async () => {
     console.log('***HandleSubmit***');
-    const res = await fetch('/api/user', {method: 'post', body: JSON.stringify(dataUser), headers: {accept: 'application/json'}, credentials: 'include'});
+    const res = await fetch('/goods/user', {method: 'post', body: JSON.stringify(dataUser), headers: {accept: 'application/json'}, credentials: 'include'});
     if (res.ok) {
       const result = await res.json();
       if (result.isMail) $ident = '';
