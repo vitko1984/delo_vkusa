@@ -96,7 +96,7 @@
     const isNoErrors = $form.name.length === 0 || $form.email.length === 0 || 
       ($form.name.length > 0 && $form.name.length <= 1) || ($form.email.length > 0 && !/@/.test($form.email)) ? false : true;
     if (isNoErrors) {
-      const res = await fetch('/api/user', {method: 'POST', body: JSON.stringify({title: 'Комментарий "Контакты"', name: $form.name, email: $form.email, wish: wish || wish.length !== 0 ? wish : ''}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+      const res = await fetch('/goods/user', {method: 'POST', body: JSON.stringify({title: 'Комментарий "Контакты"', name: $form.name, email: $form.email, wish: wish || wish.length !== 0 ? wish : ''}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
       if (res.ok) {
         const result = await res.json();
         console.log('Ответ сервера(HandleSubmit): ', result.msg);
