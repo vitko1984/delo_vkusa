@@ -245,7 +245,6 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
           const url = 'https://delo-vkusa.vercel.app/api/hello'
           const res = await fetch(url);
           const result = res.ok && await res.json();
-          console.log('Ответ бессер-ной ф-ции: ', result)
           return  {
             body: {
               content: result,
