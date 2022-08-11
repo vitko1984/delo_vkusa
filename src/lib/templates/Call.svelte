@@ -22,6 +22,10 @@
   </span>    
 </div>
 
+<script context="module">
+  export const prerender = true;
+</script>
+
 <script lang="ts"> 
   import { contentBasket as tbl, uid, form, isHandleErrors } from '../../stores/app';
 
