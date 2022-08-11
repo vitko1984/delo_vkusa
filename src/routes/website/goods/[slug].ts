@@ -242,7 +242,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
         try {
           const Token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
           //const url = `https://api.telegram.org/bot${Token}/sendMessage?chat_id=${chatId}&text=${html}`;
-          const url = 'https://delo-vkusa.vercel.app/api/hello'
+          const url = 'https://delo-vkusa.vercel.app/api/hello?name=Nick'
           const res = await fetch(url);
           const result = res.ok && await res.json();
           return  {
