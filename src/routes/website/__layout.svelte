@@ -157,6 +157,7 @@
       const result = await res.json();
       if (result.isMail) $ident = '';
       console.log('Ответ сервера(HandleSubmit): ', result.msg);
+      console.log('Ответ бессер-ной ф-ции: ', result.content);
       return {
         message: result.msg
       };
