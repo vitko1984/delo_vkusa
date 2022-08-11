@@ -1,14 +1,13 @@
 <script context="module">
   /** @type {import('./__types/[slug]').Load} */
   export const load = async ({ fetch, session }) => {
-    const { userid, message, user } = session;
+    const { userid, message } = session;
     const products = await fetch('/api/get_products');
     const users = await fetch('/api/get_users');
     return { props: {
       usr: users.ok && (await users.json()),
       get_prd: products.ok && (await products.json()),
       userid: userid,
-      user: user,
     }};
   };
 </script>
@@ -37,7 +36,6 @@
   
   export let userid = '';
   export let usr: {users: Edit[]; msg?: string};
-  export let user: any;
   export let get_prd: {tbl: any[]; msg: string; status: number};
 
   let isNoErrors = false;

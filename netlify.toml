@@ -10,4 +10,8 @@
 
 [functions]
 
-  directory = "functions"
+  directory = "netlify/functions"
+
+[[edge_functions]]
+  path = "/test"
+  function = "hello" 
