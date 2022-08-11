@@ -46,7 +46,9 @@
     </div>            
   </div>
 
-  <div class="justify-self-end flex flex-col items-start bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <!-- svelte-ignore component-name-lowercase -->
+  <form name="contacts" method="POST" netlify-honeypot="bot-field" data-netlify="true" class="justify-self-end flex flex-col items-start bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
+    <input type="hidden" name="form-name" value="netlify-form-example" />
     <span class="font-black text-[32px] leading-10 py-2">Обратная связь</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Отправьте Ваш вопрос, комментарий, пожелание прямо с сайта.</span>
     <div class="grid grid-rows-[54px_54px_120px] gap-4 w-[640px]">
@@ -65,18 +67,11 @@
      <textarea type="text" name="wish" placeholder="Ваше сообщение" class="textarea textarea-bordered bg-blue-50 w-full placeholder:text-gray-400" bind:value="{wish}" />    
     </div>
     <button class="button mt-6" on:click="{ handleSubmit }">Отправить</button>   
-  </div>
+  </form>
 </div> 
 
 <script lang="ts">
   import { form, isHandleErrors } from '../../stores/app';
-  //import DG from '2gis-maps';
-
-  /*const map = DG.map('map', {
-    center: [47.256616290029115,39.87908988462681],
-    zoom: 15
-  });
-  DG.marker([47.256616290029115,39.87908988462681]).addTo(map);*/
 
   const field_empty = "Поле не заполнено.";
   const name_incorrect = "Поле должно содержать не менее 2-х символов.";
