@@ -186,28 +186,28 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
           let envlpCntnt = '';
           req_data.envelope.map(v => {
             envlpCntnt += `
-              Продукт: ${(v.productName).replace(`|${locals.userid}`, '')}\n
-              Цена: ${v.price}\n
-              Количество: ${v.amount}`;
+              Продукт: *${(v.productName).replace(`|${locals.userid}`, '')}_\t
+              Цена: *${v.price}_\t
+              Количество: *${v.amount}_`;
           });
-          html = `✅ *${req_data.title}*\n\n
-             Заказчик: ${req_data.name}\n 
-             Телефон: ${req_data.phone}\n 
-             Эл.почта: ${req_data.email}\n 
-             Адрес доставки: ${req_data.address}\n\n 
-            *Детали заказа:*\n
-            ${envlpCntnt}\n\n
-            *Общая стоимость: ${req_data.total}* 👋🏻`;
+          html = `✅ *${req_data.title}*\t\t
+             Заказчик: *${req_data.name}_\t 
+             Телефон: *${req_data.phone}_\t 
+             Эл.почта: *${req_data.email}_\t 
+             Адрес доставки: *${req_data.address}_\t\t 
+            *Детали заказа:*\t
+            ${envlpCntnt}\t\t
+            *Общая стоимость: *${req_data.total}_* 👋🏻`;
         } else if (req_data.title === 'Перезвонить') {
-          html = `✅ *${req_data.title}*\n\n
-            Клиент: ${req_data.name}\n
-            Телефон: ${req_data.phone}\n
-            Вемя звонка, пожелания: ${req_data.wish} 👋🏻`;	
+          html = `✅ *${req_data.title}*\t\t
+            Клиент: *${req_data.name}_\t
+            Телефон: *${req_data.phone}_\t
+            Вемя звонка, пожелания: *${req_data.wish}_ 👋🏻`;	
         } else if (req_data.title === 'Комментарий "Контакты"') {
-          html = `✅ *${req_data.title}*\n\n
-            Клиент: ${req_data.name}\n
-            Эл.почта: ${req_data.email}\n
-            Комментарий, пожелание: ${req_data.wish} 👋🏻`;
+          html = `✅ *${req_data.title}*\t\t
+            Клиент: *${req_data.name}_\t
+            Эл.почта: *${req_data.email}_\t
+            Комментарий, пожелание: *${req_data.wish}_ 👋🏻`;
         };
   
         /*const mailOptions = {
