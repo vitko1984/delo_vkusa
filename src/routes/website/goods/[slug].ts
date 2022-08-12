@@ -186,28 +186,28 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
           let envlpCntnt = '';
           req_data.envelope.map(v => {
             envlpCntnt += `
-              Продукт: ${(v.productName).replace(`|${locals.userid}`, '')}
-              Цена: ${v.price}
+              Продукт: ${(v.productName).replace(`|${locals.userid}`, '')}\n
+              Цена: ${v.price}\n
               Количество: ${v.amount}`;
           });
-          html = `***${req_data.title}***
-             Заказчик: ${req_data.name} 
-             Телефон: ${req_data.phone} 
-             Эл.почта: ${req_data.email} 
-             Адрес доставки: ${req_data.address} 
-            **Детали заказа:
-            ${envlpCntnt}**
-            Общая стоимость: ${req_data.total}`;
+          html = `✅ *${req_data.title}*\n\n
+             Заказчик: ${req_data.name}\n 
+             Телефон: ${req_data.phone}\n 
+             Эл.почта: ${req_data.email}\n 
+             Адрес доставки: ${req_data.address}\n\n 
+            *Детали заказа:*\n
+            ${envlpCntnt}\n\n
+            *Общая стоимость: ${req_data.total}* 👋🏻`;
         } else if (req_data.title === 'Перезвонить') {
-          html = `***${req_data.title}***
-            Клиент: ${req_data.name}
-            Телефон: ${req_data.phone}
-            Вемя звонка, пожелания: ${req_data.wish}`;	
+          html = `✅ *${req_data.title}*\n\n
+            Клиент: ${req_data.name}\n
+            Телефон: ${req_data.phone}\n
+            Вемя звонка, пожелания: ${req_data.wish} 👋🏻`;	
         } else if (req_data.title === 'Комментарий "Контакты"') {
-          html = `***${req_data.title}***
-            Клиент: ${req_data.name}
-            Эл.почта: ${req_data.email}
-            Комментарий, пожелание: ${req_data.wish}`;
+          html = `✅ *${req_data.title}*\n\n
+            Клиент: ${req_data.name}\n
+            Эл.почта: ${req_data.email}\n
+            Комментарий, пожелание: ${req_data.wish} 👋🏻`;
         };
   
         /*const mailOptions = {
