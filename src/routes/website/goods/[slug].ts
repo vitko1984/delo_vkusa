@@ -240,17 +240,17 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
         });*/
 
         try {
-          const Token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+          //const Token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
           //const url = `https://api.telegram.org/bot${Token}/sendMessage?chat_id=${chatId}&text=${html}`;
-          const url = 'https://delo-vkusa.vercel.app/api/hello?name=Nick'
-          const res = await fetch(url);
+          const url = 'https://delo-vkusa.vercel.app/api/bot'
+          const res = await fetch(url, {method: 'post', body: JSON.stringify({msg: html}), headers: {accept: 'application/json'}, credentials: 'include'});
           const result = res.ok && await res.json();
           return  {
             body: {
               content: result,
               isMail: true,
               status: 200,
-              msg: '*Почтовое сообщение отправлено.*',
+              msg: '*Сообщение отправлено.*',
             },  
           };
         } catch(e) {
@@ -264,7 +264,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
       return {
       body: {
           ...user,
-        isMail: /*mail_success*/true,
+        isMail: true,
         status: 200,
         msg: 'Данные пользователя успешно внесены в БД.',
       }
