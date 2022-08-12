@@ -186,28 +186,28 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
           let envlpCntnt = '';
           req_data.envelope.map(v => {
             envlpCntnt += `
-              __Продукт:__ _italic${(v.productName).replace(`|${locals.userid}`, '')}\n\n\n\n
-              __Цена:__ _italic${v.price}\n\n\n\n
-              __Количество:__ _italic${v.amount}`;
+            <b>*</b> <u>Продукт:</u> ${(v.productName).replace(`|${locals.userid}`, '')}\n
+            <u>Цена:</u> ${v.price}\n
+            <u>Количество:</u> ${v.amount} <b>*</b>\n`;
           });
-          html = `✅ *bold${req_data.title}\n\n\n\n
-             __Заказчик:__ _italic${req_data.name}\n\n\n\n 
-             __Телефон:__ _italic${req_data.phone}\n\n\n\n 
-             __Эл.почта:__ _italic${req_data.email}\n\n\n\n 
-             __Адрес доставки:__ _italic${req_data.address}\n\n\n\n 
-            *Детали заказа:*\n\n\n\n
-            ${envlpCntnt}\n\n\n\n
-            *Общая стоимость: _italic${req_data.total}* 👋🏻`;
+          html = `✅ <b>${req_data.title}</b>
+            <u>Заказчик:</u> ${req_data.name} 
+            <u>Телефон:</u> ${req_data.phone} 
+            <u>Эл.почта:</u> ${req_data.email} 
+            <u>Адрес доставки:</u> ${req_data.address}\n 
+            <b>Детали заказа:</b>\n
+            ${envlpCntnt}
+            <b><u>Общая стоимость:</u> <i>${req_data.total}</i></b> 👋🏻`;
         } else if (req_data.title === 'Перезвонить') {
-          html = `✅ *bold${req_data.title}\n\n\n\n
-            __Клиент:__ _italic${req_data.name}\n\n\n\n
-            __Телефон:__ _italic${req_data.phone}\n\n\n\n
-            __Вемя звонка, пожелания:__ _italic${req_data.wish} 👋🏻`;	
+          html = `✅ <b>${req_data.title}</b>
+            <ins>Клиент:</ins> ${req_data.name}
+            <ins>Телефон:</ins> ${req_data.phone}
+            <ins>Вемя звонка, пожелания:</ins> ${req_data.wish} 👋🏻`;	
         } else if (req_data.title === 'Комментарий "Контакты"') {
-          html = `✅ *${req_data.title}*\n\n\n\n
-            __Клиент:__ _italic${req_data.name}\n\n\n\n
-            __Эл.почта:__ _italic${req_data.email}\n\n\n\n
-            __Комментарий, пожелание:__ _italic${req_data.wish} 👋🏻`;
+          html = `✅ <b>${req_data.title}</b>
+            <ins>Клиент:</ins> ${req_data.name}
+            <ins>Эл.почта:</ins> ${req_data.email}
+            <ins>Комментарий, пожелание:</ins> ${req_data.wish} 👋🏻`;
         };
   
         /*const mailOptions = {
@@ -241,7 +241,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
 
         try {
           const Token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN, chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
-          const url = `https://api.telegram.org/bot${Token}/sendMessage?chat_id=${chatId}&text=${html}&parse_mode=Markdown`;
+          const url = `https://api.telegram.org/bot${Token}/sendMessage?chat_id=${chatId}&text=${html}&parse_mode=HTML`;
           //const url = 'https://delo-vkusa.vercel.app/api/bot'
           //const res = await fetch(url, {method: 'post', body: JSON.stringify({msg: html}), headers: {accept: 'application/json'}, credentials: 'include'});
           const res = await fetch(url);
