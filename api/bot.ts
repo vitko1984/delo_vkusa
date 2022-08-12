@@ -15,8 +15,10 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     // что дал нам Botfather
     // Использовать переменную окружения, чтобы не показывать ее в нашем коде
     //const bot = new TelegramBot(token, { polling: true });
-    const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
-    const userId = process.env.TELEGRAM_CHAT_ID;
+    //const bot = new TelegramBot(process.env.VITE_TELEGRAM_BOT_TOKEN);
+    //const userId = process.env.VITE_TELEGRAM_CHAT_ID;
+    const bot = new TelegramBot('1479357668:AAFtfLRCDmRmDNyHAk16XXuqq18WsPu4OOc')
+    const userId = '1232247854';
     // Получаем тело POST-запроса, отправленного из Telegram
     const { body } = request;
     // Убедитесь, что это отправляемое сообщение
