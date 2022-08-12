@@ -35,7 +35,12 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
   };
   // Подтвердить сообщение с помощью Telegram
   // отправив код состояния HTTP 200
-  response.send('OK');
+  //response.send('OK');
+  response.status(200).json({
+    body: request.body,
+    query: request.query,
+    cookies: request.cookies,
+  });
 };
 
 export default handler
