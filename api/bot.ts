@@ -9,7 +9,7 @@ import TelegramBot from 'node-telegram-bot-api';
   });
 }*/
 
-const handler = async (request: VercelRequest, response: VercelResponse) => {
+module.exports = async (request: VercelRequest, response: VercelResponse) => {
   try {
     // Создаем новый обработчик бота с токеном
     // что дал нам Botfather
@@ -25,9 +25,10 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     if (body.msg) {
       // Создаем сообщение для отправки обратно
       // Мы можем использовать Markdown внутри этого
-      //const message = `✅ Спасибо за ваше сообщение: *"${text}"*\nхорошего дня! 👋🏻`;
+      const text = body.msg;
+      const message = `✅ Спасибо за ваше сообщение: *"${text}"*\nхорошего дня! 👋🏻`;
       // Отправляем наше новое сообщение обратно в Markdown
-      await bot.sendMessage(userId, body.msg, {parse_mode: 'Markdown'});
+      await bot.sendMessage(userId, message, {parse_mode: 'Markdown'});
     };
   } catch(error) {
     // Если произошла ошибка при отправке нашего сообщения, то мы
@@ -44,5 +45,3 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     cookies: request.cookies,
   });
 };
-
-export default handler
