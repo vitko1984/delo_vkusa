@@ -248,7 +248,6 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
           return  {
             body: {
               content: result,
-              isMail: true,
               status: 200,
               msg: '*Сообщение отправлено.*',
             },  
@@ -264,7 +263,6 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
       return {
       body: {
           ...user,
-        isMail: true,
         status: 200,
         msg: 'Данные пользователя успешно внесены в БД.',
       }
