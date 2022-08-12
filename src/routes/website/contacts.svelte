@@ -99,9 +99,13 @@
       const res = await fetch('/goods/user', {method: 'POST', body: JSON.stringify({title: 'Комментарий "Контакты"', name: $form.name, email: $form.email, wish: wish || wish.length !== 0 ? wish : ''}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
       if (res.ok) {
         const result = await res.json();
-        console.log('Ответ сервера(HandleSubmit): ', result.msg);
+        const { content, msg, status } = result;
+        if (status === 200) {
+          console.log('Ответ бессер-ной ф-ции: ', content);
+        };
+        console.log('Ответ сервера(HandleSubmit): ', msg);
         return {
-          message: result.msg
+          message: msg
         };
       };
     };      

@@ -155,9 +155,12 @@
     const res = await fetch('/goods/user', {method: 'post', body: JSON.stringify(dataUser), headers: {accept: 'application/json'}, credentials: 'include'});
     if (res.ok) {
       const result = await res.json();
-      if (result.isMail) $ident = '';
-      console.log('Ответ сервера(HandleSubmit): ', result.msg);
-      console.log('Ответ бессер-ной ф-ции: ', result.content);
+      const { content, msg, status } = result;
+      if (status === 200) {
+        $ident = '';
+        console.log('Ответ бессер-ной ф-ции: ', content);
+      };
+      console.log('Ответ сервера(HandleSubmit): ', msg);
       return {
         message: result.msg
       };

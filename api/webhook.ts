@@ -53,7 +53,7 @@ module.exports = async (request: VercelRequest, response: VercelResponse) => {
           Эл.почта: ${body.email}\n
           Комментарий, пожелание: ${body.wish}`;
       };
-      bot.sendMessage(userId, html, {parse_mode: 'Markdown'});
+      await bot.sendMessage(userId, html, {parse_mode: 'Markdown'});
     };*/
   } catch(error) {
     // Если произошла ошибка при отправке нашего сообщения, то мы
