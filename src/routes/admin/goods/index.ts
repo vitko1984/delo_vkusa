@@ -98,8 +98,8 @@ export const DELETE: import('@sveltejs/kit').RequestHandler = async () => {
 	  //const deleteProducts = await api('product', 'delete_many', reqObj);
     //const deleteCategories = await api('category', 'delete_many', reqObj);
     //const deleteTags =await api('tag', 'delete_many', reqObj);
-    //const deletePosts =await api('post', 'delete_many', reqObj);
-    //const deleteBasket =await api('basket', 'delete_many', reqObj);
+    const deletePosts =await api('post', 'delete_many', reqObj);
+    const deleteBasket =await api('basket', 'delete_many', reqObj);
     const deleteUsers =await api('user', 'delete_many', reqObj);
 
     if (/*deleteProducts && deleteCategories && deleteTags && deleteBasket && deletePosts && */deleteUsers) {

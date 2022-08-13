@@ -10,7 +10,6 @@ interface DataPost  extends Edit {
     envelope?: Edit[];
   };
   
-
 export const DELETE:RequestHandler = async ({request, params}) => {
 const req_data: DataPost = await request.json();  
   if (params.uid === 'row_clear') {

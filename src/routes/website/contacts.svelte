@@ -47,7 +47,7 @@
   </div>
 
   <!-- svelte-ignore component-name-lowercase -->
-  <form class="justify-self-end flex flex-col items-start bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <div class="justify-self-end flex flex-col items-start bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
     <span class="font-black text-[32px] leading-10 py-2">Обратная связь</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Отправьте Ваш вопрос, комментарий, пожелание прямо с сайта.</span>
     <div class="grid grid-rows-[54px_54px_120px] gap-4 w-[640px]">
@@ -65,8 +65,8 @@
       </div>
      <textarea type="text" name="wish" placeholder="Ваше сообщение" class="textarea textarea-bordered bg-blue-50 w-full placeholder:text-gray-400" bind:value="{wish}" />    
     </div>
-    <button type="submit" class="button mt-6" on:click="{ handleSubmit }">Отправить</button>   
-  </form>
+    <button type="submit" class="button mt-6" on:click="{ handleAction }">Отправить</button>   
+  </div>
 </div>
 
 <script context="module">
@@ -75,6 +75,7 @@
 
 <script lang="ts">
   import { form, isHandleErrors } from '../../stores/app';
+  import type { Edit } from '$lib/types';
 
   const field_empty = "Поле не заполнено.";
   const name_incorrect = "Поле должно содержать не менее 2-х символов.";
@@ -82,34 +83,40 @@
 
   let errors = {name: '', email: ''}; 
   let wish = '';
+  let isNoErrors = false;
+  let dataUser:Edit;
 
   const handleChange = () => {
     console.log('***handleChange***');
     errors.name = $form.name.length === 0 ? field_empty : ($form.name.length > 0 && $form.name.length <= 1) ? name_incorrect : '';
     errors.email = $form.email.length === 0 ? field_empty : ($form.email.length > 0 && !/@/.test($form.email)) ? email_incorrect : ''; 
     return errors;
-  };  
+  };
+  
+  const handleAction = () => {
+    console.log('***handleAction***');
+    $isHandleErrors = true;
+    isNoErrors = $form.name.length === 0 || $form.email.length === 0 || ($form.name.length > 0 && $form.name.length <= 1) || ($form.email.length > 0 && !/@/.test($form.email)) ? false : true;
+    dataUser = {title: 'Комментарий "Контакты"', name: $form.name, email: $form.email, wish: wish || wish.length !== 0 ? wish : ''};
+  };
 
   const handleSubmit = async () => {
     console.log('***handleSubmit***');
-    $isHandleErrors = true;
-    const isNoErrors = $form.name.length === 0 || $form.email.length === 0 || 
-      ($form.name.length > 0 && $form.name.length <= 1) || ($form.email.length > 0 && !/@/.test($form.email)) ? false : true;
-    if (isNoErrors) {
-      const res = await fetch('/goods/user', {method: 'POST', body: JSON.stringify({title: 'Комментарий "Контакты"', name: $form.name, email: $form.email, wish: wish || wish.length !== 0 ? wish : ''}), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
-      if (res.ok) {
-        const result = await res.json();
-        const { content, msg, status } = result;
-        if (status === 200) {
-          console.log('Ответ бессер-ной ф-ции: ', content);
-        };
-        console.log('Ответ сервера(HandleSubmit): ', msg);
-        return {
-          message: msg
-        };
+    const res = await fetch('/goods/user', {method: 'post', body: JSON.stringify(dataUser), headers: {accept: 'application/json'}, credentials: 'include'});
+    if (res.ok) {
+      const result = await res.json();
+      const { content, msg, status } = result;
+      if (status === 200) {
+        console.log('Ответ бессер-ной ф-ции: ', content);
+      };
+      console.log('Ответ сервера(HandleSubmit): ', msg);
+      return {
+        message: result.msg
       };
     };      
   };
+
+  $: isNoErrors && handleSubmit();
 </script>
 
 <style>
