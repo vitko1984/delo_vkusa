@@ -57,10 +57,10 @@
   }
 
   header {
-    @apply fixed top-0 left-0 w-full bg-white shadow-md z-10;  
+    @apply /*fixed top-0 left-0 */w-full bg-white shadow-md z-10;  
   }
   main {
-    @apply flex-auto py-4 bg-gray-100 dark:bg-gray-600  mt-[132px];
+    @apply flex-auto py-4 bg-gray-100 dark:bg-gray-600/*  mt-[132px]*/;
   }
 
   footer {

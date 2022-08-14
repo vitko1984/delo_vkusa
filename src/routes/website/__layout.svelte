@@ -19,7 +19,7 @@
   import Dialog from '$lib/templates/Dialog.svelte';
   import Order from '$lib/templates/Order.svelte';
   import Search from '$lib/templates/Search.svelte';
-  import BackCall from '$lib/templates/Call.svelte'
+  import BackCall from '$lib/templates/Call.svelte';
   import type { Edit, DataGallery } from '$lib/types';
   import { 
     modalId as ident,

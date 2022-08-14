@@ -1,6 +1,6 @@
-<svelte:window bind:innerWidth={ widthWin } />
+<svelte:window bind:scrollY={ heightWin } bind:innerWidth={widthWin} />
 
-<header>
+<header class="relative">
   <div class="relative flex justify-between items-center px-1 h-48 md:h-full xl:px-[70px] bg-red-100">
     <div class="absolute top-1 md:static flex">
       <a href="/">
@@ -36,8 +36,8 @@
         <i class="errors">{errors.name}</i>
       {/if}
     </div>
-    <!--{#if widthWin > 768}-->
-    <div class="absolute top-1 right-1 md:static flex flex-col lg:flex-row lg:justify-between items-center min-w-[84px] ml-2 border-2 lg:border-0 rounded-lg border-white">
+    
+    <div class="absolute top-2 right-2 md:static flex flex-col lg:flex-row lg:justify-between items-center min-w-[84px] ml-2 border-2 lg:border-0 rounded-lg border-white">
       <div class="flex items-center h-7">
         <!-- Theme toggler -->
         <div class="flex text-[#ab8c52]">
@@ -172,12 +172,9 @@
           {/if}
         </div>
       </div>
-    </div>  
-    <!--{:else}
-      <h3>Логотип меню</h3>
-    {/if}-->
+    </div>
   </div>  
-  <div class="hdr-menu bg-red-50">
+  <div class="hdr-menu bg-red-50" class:sticky="{(heightWin > 100 && widthWin > 640) || (heightWin > 140 && widthWin < 640)}">
     <Menu />
   </div>
 </header>
@@ -211,6 +208,7 @@
   const name_incorrect = "Поле должно содержать не менее 2-х символов.";
 
   let isLogin = '';
+  let heightWin: number;
   let widthWin: number;
   let search = '';
   let dataSearch: any[] = [];
@@ -276,5 +274,9 @@
 
   .errors {
     @apply p-0 text-sm text-orange-600 list-none;
+  }
+
+  .sticky {
+    @apply fixed top-0 w-full;
   }
 </style>
