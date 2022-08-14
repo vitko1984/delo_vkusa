@@ -81,10 +81,6 @@
     @apply max-w-screen-2xl lg:px-20 py-4 w-full mx-auto my-0 bg-transparent text-center;
   }
 
-  .hdr {
-    @apply flex justify-between items-center px-1 xl:px-[70px];
-  }
-
   .button {
     @apply inline-block py-[5px] px-[15px] border-0 rounded-[28px] decoration-0 transition-transform bg-[#ab8c52] hover:scale-110 cursor-pointer text-white text-[18px] font-bold shadow-btnModalShadow;
   }
