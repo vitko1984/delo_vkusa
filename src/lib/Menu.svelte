@@ -1,33 +1,52 @@
-<div class="flex justify-between items-center px-[70px]">
-    <nav>
-      <ul class="flex items-start list-none">
-        {#each menu.menuList as items, id}
-          <li>
-            <div class="dropdown">                
-              <!-- svelte-ignore a11y-label-has-associated-control -->
-              <label tabindex="0">
-                <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-                <a class:active="{$page.url.pathname === items.path || ($page.url.pathname === `${items.path}/baskets` && id === 2) || ($page.url.pathname === `${items.path}/bouquets` && id === 2)}" 
+<div class="flex justify-between items-center px-2 lg:px-[70px] py-1">
+    <!-- Mobile hamburger -->
+    <button
+      id="nav-mobile-hamburger"
+      class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+      on:click={toggleSideMenu}
+      aria-label="Menu"
+    >
+      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+
+    <div class="hidden md:block">
+      <nav>
+        <ul class="flex items-start list-none">
+          {#each menu.menuList as items, id}
+            <li>
+              <div class="dropdown">                
+                <!-- svelte-ignore a11y-label-has-associated-control -->
+                <label tabindex="0">
+                  <!-- svelte-ignore a11y-mouse-events-have-key-events -->
+                  <a class:active="{$page.url.pathname === items.path || ($page.url.pathname === `${items.path}/baskets` && id === 2) || ($page.url.pathname === `${items.path}/bouquets` && id === 2)}" 
                     class="block mr-8 cursor-pointer focus:no-underline" sveltekit:prefetch href={!items.submenu ? items.path : null}>      
                   <i class="-top-[6px] text-[15px] leading-[18px] font-[500] not-italic text-gray-600 hover:text-opacity-70 focus:no-underline">{ items.name }</i>
-                </a>
-              </label>
-              <ul tabindex="0" class="dropdown-content menu mt-1 p-2 w-52 rounded-b-md bg-white" class:submenu="{items.submenu && id === 2}">            
-                {#if items.submenu}                
-                  {#each Object.entries(items.submenu) as item, idx}
-                    <li>
-                      <a class="cursor-pointer focus:no-underline" href="{items.path}{item[1]}" on:click="{() => pathName = item[1]}">                     
-                        <i class="text-xs leading-none font-normal not-italic" class:sub_active="{$page.url.pathname === `${items.path}${item[1]}`}">{item[0]}</i>
-                      </a>
-                    </li>
-                  {/each}                 
-                {/if}
-              </ul>
-            </div>  
-          </li>
-        {/each}
-      </ul>
-    </nav>
+                  </a>
+                </label>
+                <ul tabindex="0" class="dropdown-content menu mt-1 p-2 w-52 rounded-b-md bg-white" class:submenu="{items.submenu && id === 2}">            
+                  {#if items.submenu}                
+                    {#each Object.entries(items.submenu) as item, idx}
+                      <li>
+                        <a class="cursor-pointer focus:no-underline" href="{items.path}{item[1]}" on:click="{() => pathName = item[1]}">                     
+                          <i class="text-xs leading-none font-normal not-italic" class:sub_active="{$page.url.pathname === `${items.path}${item[1]}`}">{item[0]}</i>
+                        </a>
+                      </li>
+                    {/each}                 
+                  {/if}
+                </ul>
+              </div>  
+            </li>
+          {/each}
+        </ul>
+      </nav>
+    </div>
+    
     <div class=" grid grid-cols-2 gap-4">
       <a href="https://t.me/+4F_rxQUqmIs0MGEy"tabIndex="0" title='"Телеграм". Жми...' class="cursor-pointer hover:scale-110">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,6 +78,9 @@
   
   <script lang="ts">
     import { page } from '$app/stores';
+    import {
+      toggleSideMenu,
+    } from '../stores/menus'
     import menu from '$lib/local/ru-RU';
   
     let pathName = '';
