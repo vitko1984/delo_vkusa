@@ -74,7 +74,7 @@
 }
 
   .container {
-    @apply max-w-screen-2xl lg:px-20 px-1 py-4 w-full mx-auto my-0 bg-transparent text-center;
+    @apply max-w-screen-2xl lg:px-20 md:px-1 px-2 py-4 w-full mx-auto my-0 bg-transparent text-center;
   }
 
   .container-no-height {
