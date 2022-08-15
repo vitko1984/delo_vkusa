@@ -19,7 +19,7 @@
 </svelte:head>
 
 <div class="container pb-4 flex flex-col items-center">
-  <span class="font-black text-4xl text-amber-200">
+  <span class="font-black   text-2xl lg:text-3xl xl:text-4xl text-amber-200">
 	<i>Добро пожаловать в сладкий мир зефирных цветов ⚘⚘⚘</i>
   </span>
   <div class="flex items-center flex-col max-w-screen-md rounded-lg border-2 border-solid border-amber-200 bg-white p-1 mt-5">	
@@ -27,7 +27,7 @@
 	  <img src="/20220215_171309-01.jpeg" alt="Фото" class="rounded-lg border-2 border-solid border-[#ab8c52]">
 	</picture>
 	
-	<div class="text-left text-lg mx-4">
+	<div class="text-left text-base md:text-lg mx-4">
 		<i>
 		  <b>Всем привет!</b>	
 		</i>

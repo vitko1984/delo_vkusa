@@ -37,14 +37,14 @@
       {#each zefirFlowers as item, idx}
         <div id="{String(idx)}" class="carousel-item relative w-full">
           <img src="/Товары/{item.photo}" alt="Фото" class="w-auto">
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <div class="hidden md: static md:absolute md:flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#{idx === 0 ? zefirFlowers.length - 1 : idx - 1}" sveltekit:noscroll class="btn btn-circle bg-[#ab8c52] hover:bg-amber-300 border-white">❮</a>
             <a href="#{idx === zefirFlowers.length - 1 ? 0 : idx + 1}" sveltekit:noscroll class="btn btn-circle bg-[#ab8c52] hover:bg-amber-300 border-white">❯</a>
           </div>
         </div>
       {/each}
     </div>
-    <div class="p-4 text-left text-lg bg-gray-50">
+    <div class="p-4 text-left text-base md:text-lg bg-gray-50">
       <p><i><b>Хочешь порадовать родных, близких или коллег, но не знаешь как?!</b></i></p>
       <p><i>Закажи зефирный букет- это отличный и оригинальный подарок на любой случай или праздник.</i></p>
       <p><i>Удивительно нежный зефир никого не оставит равнодушным.</i></p>
