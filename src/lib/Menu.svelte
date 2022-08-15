@@ -54,7 +54,7 @@
     {/if}
   </div>
   <!--Конец мобильного меню-->
-  <div class="hidden md:block">
+  <div class="hidden md:block items-start">
     <nav>
       <ul class="flex items-start list-none">
         {#each menu.menuList as items, id}

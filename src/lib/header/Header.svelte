@@ -10,8 +10,8 @@
           </picture>
         </div>
       </a>  
-      <div class="grid gap-0 text-gray-600 pl-3 mt-1 p-4">
-        <i class="font-bold text-3xl leading-none text-[#ab8c52]">Дело вкуса</i>
+      <div class="grid gap-0 text-gray-600 mt-1 py-4 pl-1">
+        <i class="font-bold text-[28px] md:text-3xl leading-none text-[#ab8c52]">Дело вкуса</i>
         <i class="font-semibold text-xs leading-none">Зефир:(букеты, корзины)</i>
         <!--<i class="font-semibold text-xs leading-none">Торты</i>
         <i class="font-semibold text-xs leading-none">Пирожные</i>-->
@@ -19,7 +19,7 @@
     </div>    
     
     <div class="absolute top-[100px] md:static flex flex-col text-center">
-      <span class="font-bold text-xl mb-2 leading-none text-[#ab5252]"><i>Красота, которую можно попробовать на вкус !</i></span>
+      <span class="font-bold text-lg md:text-xl mb-2 leading-none text-[#ab5252]"><i>Красота, которую можно попробовать на вкус !</i></span>
       <div
         use:clickOutside
         on:click-outside={() => search = ''}
@@ -39,10 +39,78 @@
     
     <div class="absolute top-2 right-2 md:static flex flex-col lg:flex-row lg:justify-between items-center min-w-[84px] ml-2 border-2 lg:border-0 rounded-lg border-white">
       <div class="flex items-center h-7">
-        <!-- Theme toggler -->
-        <div class="flex text-[#ab8c52]">
-          <ToggleTheme />
+        <!-- Notifications menu -->
+        <div class="relative">
+          <button
+            tabindex="0"
+            title="Оповещения"
+            id="nav-notification-btn"
+            class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple text-[#ab8c52]"
+            on:click={toggleNotificationsMenu}
+            use:keydownEscape
+            on:keydown-escape={closeNotificationsMenu}
+            aria-label="Notifications"
+            aria-haspopup="true"
+          >
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
+              />
+            </svg>
+            <span
+              aria-hidden="true"
+              class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
+            />
+          </button>
+          {#if $isNotificationsMenuOpen}
+            <ul
+              use:clickOutside={['nav-notification-btn']}
+              on:click-outside={closeNotificationsMenu}
+              use:keydownEscape
+              on:keydown-escape={closeNotificationsMenu}
+              class="absolute right-10 w-56 p-2 mt-2 z-10 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+            >
+              <li class="flex">
+                <a
+                  class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  href="/"
+                >
+                  <span>Сообщения</span>
+                  <span
+                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600"
+                  >
+                    13
+                  </span>
+                </a>
+              </li>
+              <li class="flex">
+                <a
+                  class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  href="/"
+                >
+                  <span>Продажи</span>
+                  <span
+                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600"
+                  >
+                    2
+                  </span>
+                </a>
+              </li>
+              <li class="flex">
+                <a
+                  class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  href="/"
+                >
+                  <span>Оповещения</span>
+                </a>
+              </li>
+            </ul>
+          {/if}
         </div>
+        <!-- Theme toggler -->
+        <!--<div class="flex text-[#ab8c52]">
+          <ToggleTheme />
+        </div>-->
         <div class="pb-2 w-8">
           <!-- svelte-ignore a11y-label-has-associated-control -->
           <label tabindex="0" class="btn btn-ghost btn-circle bg-transparent text-[#ab8c52] hover:bg-transparent">
@@ -100,7 +168,7 @@
               on:click-outside={toggleProfileMenu}
               use:keydownEscape
               on:keydown-escape={closeProfileMenu}
-              class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+              class="absolute right-0 w-56 p-2 z-10 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
               aria-label="submenu"
             >
               <li class="flex">
@@ -190,6 +258,9 @@
     uid 
   } from '../../stores/app';
   import {
+    isNotificationsMenuOpen,
+    toggleNotificationsMenu,
+    closeNotificationsMenu,
     isProfileMenuOpen,
     toggleProfileMenu,
     closeProfileMenu
@@ -215,7 +286,7 @@
   let products:DataGallery[] = [];
   let errors = {name: '', };
   let avatar = 'user.png';
-  let userName = 'Ваше имя';
+  let userName = 'Ваш профиль';
   let withSearch = true;
 
   for (let v of $dataGallery) {
