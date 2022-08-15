@@ -19,8 +19,8 @@
 </svelte:head>
 
 <div class="container pb-4 flex flex-col items-center">
-  <span class="font-black   text-2xl lg:text-3xl xl:text-4xl text-lime-200">
-	<i>Добро пожаловать в сладкий мир зефирных цветов ⚘⚘⚘</i>
+  <span class="font-black   text-2xl lg:text-3xl xl:text-4xl text-[#ab5252]">
+	<i>Добро пожаловать в сладкий мир зефирных цветов <i class="text-lime-400">⚘⚘⚘</i></i>
   </span>
   <div class="flex items-center flex-col max-w-screen-md rounded-lg border-2 border-solid border-amber-200 bg-white p-1 mt-5">	
 	<picture>

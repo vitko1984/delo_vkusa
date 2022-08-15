@@ -37,7 +37,7 @@
 
 <style lang="postcss">
 .DialogModal {
-  @apply fixed bottom-0 left-0 right-0 top-[132px]  bg-black bg-opacity-50 z-10;
+  @apply fixed bottom-0 left-0 right-0 top-0  bg-black bg-opacity-50 z-10;
 }
 .DialogModalWrap {
   @apply bg-white bg-opacity-90 my-[5%] mx-auto max-w-lg;
