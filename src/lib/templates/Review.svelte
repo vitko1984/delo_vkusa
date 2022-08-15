@@ -1,6 +1,6 @@
 <div class="grid grid-rows-[36px_minmax(20px,_1fr)] px-4 mb-2">
   <span class="label">
-    <i class="label-text text-[#ab8c52] font-normal text-3xl">Все отзывы о продукте:</i>
+    <i class="label-text text-[#ab8c52] font-normal text-xl">Все отзывы о продукте:</i>
   </span>         
   <div>  
     {#each comments as item}
