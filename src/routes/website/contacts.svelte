@@ -14,16 +14,16 @@
 </svelte:head>
 
 <div class="container grid grid-rows-3 pb-4">
-  <div class="justify-self-center grid bg-white opacity-70 rounded-lg w-1/2 h-3/4 border-2 border-solid border-amber-200">            
+  <div class="justify-self-center grid bg-white opacity-70 rounded-lg w-auto md:w-1/2 h-3/4 border-2 border-solid border-amber-200">            
     <picture class="justify-self-center">
       <img src="/contacts.png" alt="Контакты">
     </picture>
   </div>
 
-  <div class="flex flex-col items-start bg-white w-1/2 h-4/5 border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <div class="flex flex-col items-start bg-white w-auto md:w-1/2 h-4/5 border-2 border-solid border-amber-200 p-4  rounded-lg">
     <span class="font-black text-[32px] leading-10 py-2">Контакты</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Ваши вопрсы и предложения мы будем рады получить по следующим адресам:</span>
-    <div class="flex justify-between w-full">
+    <div class="flex flex-col md:flex-row justify-between w-full">
       <div class="grid grid-rows-4 gap-4 mr-4">
         <div class="flex items-center">
           <i class="fa-solid fa-location-dot"></i>
@@ -47,7 +47,7 @@
   </div>
 
   <!-- svelte-ignore component-name-lowercase -->
-  <div class="justify-self-end flex flex-col items-start bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <div class="justify-self-end flex flex-col items-start w-auto bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
     <span class="font-black text-[32px] leading-10 py-2">Обратная связь</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Отправьте Ваш вопрос, комментарий, пожелание прямо с сайта.</span>
     <div class="grid grid-rows-[54px_54px_120px] gap-4 w-[640px]">

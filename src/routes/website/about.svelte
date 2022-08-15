@@ -11,7 +11,7 @@
 
 	// так как здесь нет динамических данных, мы можем пререндерить
 	// так, чтобы он служил статическим активом в prod
-	//export const prerender = true;
+	export const prerender = true;
 </script>
 
 <svelte:head>
