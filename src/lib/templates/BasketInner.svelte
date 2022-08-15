@@ -1,7 +1,7 @@
-<div class="grid grid-rows-[36px_minmax(20px,_1fr)] px-8 mb-2">
+<div class="grid grid-rows-[36px_minmax(20px,_1fr)] px-1 lg:px-8 mb-2">
 
   <!--Шапка(верхняя часть) таблицы-->
-  <div class="grid grid-cols-[210px_100px_100px_minmax(20px,_1fr)] items-center bg-gray-50 font-black not-italic text-xs text../stores/stores] leading-9">
+  <div class="grid grid-cols-[minmax(100px,_1fr)_80px_minmax(100px,_1fr)_40px] items-center bg-gray-50 font-black not-italic text-xs text../stores/stores] leading-9">
     <span class="shadow-rowRightShadow">
       <i>{tbl_hdrs[0]}</i> 
     </span>
@@ -24,7 +24,7 @@
   {:else}
     {#each $tbl as row, idx}
       {#if new RegExp($uid).test(row.productName)}
-        <div class="grid grid-cols-[210px_100px_100px_minmax(20px,_1fr)] items-center bg-gray-50 font-normal not-italic text-xs leading-9">
+        <div class="grid grid-cols-[minmax(100px,_1fr)_80px_minmax(100px,_1fr)_40px] items-center bg-gray-50 font-normal not-italic text-xs leading-9">
           <span class="shadow-rowStartColumnShadow">
             <i>{(row.productName).replace(`|${$uid}`, '')}</i>
           </span>
