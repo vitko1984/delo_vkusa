@@ -3,7 +3,7 @@
 </svelte:head>
 
 <div class="container grid pb-4">
-  <div class="flex flex-col items-start bg-white w-1/2 border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <div class="flex flex-col items-start bg-white w-full md:w-1/2 border-2 border-solid border-amber-200 p-4  rounded-lg">
     <div class="flex">
       <picture>
         <img src="/payment.png" alt="Оплата" class="rounded-sm w-[100px] h-[100px]">
@@ -18,7 +18,7 @@
     </ol>      
   </div>
   
-  <div class="justify-self-end flex flex-col items-start mt-[70px] bg-white w-1/2 border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <div class="justify-self-end flex flex-col items-start mt-[70px] bg-white w-full md:w-1/2 border-2 border-solid border-amber-200 p-4  rounded-lg">
     <div class="flex">
       <picture>
         <img src="/delivery.png" alt="Доставка" class="rounded-sm w-[100px] h-[100px]">
@@ -34,3 +34,19 @@
     </ol>  
   </div>
 </div>
+
+<script context="module">
+	import { browser, dev } from '$app/env';
+
+	// нам не нужен JS на этой странице, хотя мы загрузим
+	// это в dev, чтобы мы получили горячую замену модуля...
+	export const hydrate = dev;
+
+	// ...но если клиентский маршрутизатор уже загружен
+	// (т.е. мы пришли сюда из другого места в приложении), используйте его
+	export const router = browser;
+
+	// так как здесь нет динамических данных, мы можем пререндерить
+	// так, чтобы он служил статическим активом в prod
+	export const prerender = true;
+</script>
