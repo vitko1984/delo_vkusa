@@ -193,7 +193,7 @@
     isProfileMenuOpen,
     toggleProfileMenu,
     closeProfileMenu
-  } from '../../stores/menus'
+  } from '../../stores/menus';
   import { clickOutside } from '$lib/ioevents/click';
   import { keydownEscape } from '$lib/ioevents/keydown';
   import type { DataGallery } from '$lib/types';

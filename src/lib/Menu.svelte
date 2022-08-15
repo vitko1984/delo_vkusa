@@ -1,4 +1,5 @@
 <div class="flex justify-between items-center px-2 lg:px-[70px] py-1">
+  <!--Начало мобильного меню-->
   <div class="relative">
     <!-- Mobile hamburger -->
     <button
@@ -13,8 +14,46 @@
           clip-rule="evenodd"/>
       </svg>
     </button>
-  </div>
 
+    {#if $isSideMenuOpen}
+      <nav>
+        <ul
+            use:clickOutside={['nav-mobile-hamburger']}
+            on:click-outside={closeSideMenu}
+            use:keydownEscape
+            on:keydown-escape={closeSideMenu}
+            class="absolute left-0 w-56 p-2 mt-2 space-y-1 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+            aria-label="submenu">
+          {#each menu.menuList as items, id}
+            <li class="flex flex-col">
+              <div class="dropdown">
+                <!-- svelte-ignore a11y-label-has-associated-control -->
+                <label tabindex="0">
+                  <!-- svelte-ignore a11y-mouse-events-have-key-events -->
+                  <a class:active="{$page.url.pathname === items.path || ($page.url.pathname === `${items.path}/baskets` && id === 2) || ($page.url.pathname === `${items.path}/bouquets` && id === 2)}" 
+                      class="block mr-8 cursor-pointer focus:no-underline" sveltekit:prefetch href={!items.submenu ? items.path : null}>      
+                    <i class="-top-[6px] text-[15px] leading-[18px] font-[500] not-italic text-gray-600 hover:text-opacity-70 focus:no-underline">{ items.name }</i>
+                  </a>
+                </label>
+                <ul tabindex="0" class="dropdown-content menu mt-1 p-2 w-52 rounded-b-md bg-white" class:submenu="{items.submenu && id === 2}">            
+                  {#if items.submenu}                
+                    {#each Object.entries(items.submenu) as item, idx}
+                      <li>
+                        <a class="cursor-pointer focus:no-underline" href="{items.path}{item[1]}" on:click="{() => pathName = item[1]}">                     
+                          <i class="text-xs leading-none font-normal not-italic" class:sub_active="{$page.url.pathname === `${items.path}${item[1]}`}">{item[0]}</i>
+                        </a>
+                      </li>
+                    {/each}                 
+                  {/if}
+                </ul>
+              </div>
+            </li>
+          {/each}
+        </ul>
+      </nav>
+    {/if}
+  </div>
+  <!--Конец мобильного меню-->
   <div class="hidden md:block">
     <nav>
       <ul class="flex items-start list-none">
@@ -79,8 +118,12 @@
   <script lang="ts">
     import { page } from '$app/stores';
     import {
+      isSideMenuOpen,
       toggleSideMenu,
-    } from '../stores/menus'
+      closeSideMenu,
+    } from '../stores/menus';
+    import { clickOutside } from '$lib/ioevents/click';
+    import { keydownEscape } from '$lib/ioevents/keydown';
     import menu from '$lib/local/ru-RU';
   
     let pathName = '';
