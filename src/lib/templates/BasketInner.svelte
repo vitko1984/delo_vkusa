@@ -77,7 +77,7 @@
     const _amount = editCount ? Number(editCount) - $tbl[i].amount : $tbl[i].amount;
     let _count = 0;
     const data = {productName: ($tbl[i].productName).replace(`|${$uid}`, ''), price: $tbl[i].price, amount: _amount};
-    const res = await fetch('/api/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+    const res = await fetch('/goods/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
     if (res.ok) {
       const result = await res.json();
       console.log('Ответ сервера(PostUserBasket) в BasketInner: ', result.msg);
@@ -99,7 +99,7 @@
 
   const handleDelete = async (i: number) => {
     const data = {productName: $tbl[i].productName};
-    const res = await fetch('/api/basket_del', {method: 'DELETE', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}});
+    const res = await fetch('/goods/basket_del', {method: 'DELETE', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}});
     if (res.ok) {
       const result = await res.json();
       console.log('Ответ сервера(DeleteBasket) в BasketInner: ', result.msg);
