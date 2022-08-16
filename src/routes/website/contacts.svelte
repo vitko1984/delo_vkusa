@@ -13,14 +13,14 @@
   </script>
 </svelte:head>
 
-<div class="container grid grid-rows-3 pb-4">
-  <div class="justify-self-center grid bg-white opacity-70 rounded-lg w-auto md:w-1/2 h-3/4 border-2 border-solid border-amber-200">            
+<div class="container grid gap-5 pb-4">
+  <div class="justify-self-center grid bg-white opacity-70 rounded-lg w-full md:w-full border-2 border-solid border-amber-200">            
     <picture class="justify-self-center">
       <img src="/contacts.png" alt="Контакты">
     </picture>
   </div>
 
-  <div class="flex flex-col items-start bg-white w-auto md:w-1/2 h-4/5 border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <div class="flex flex-col items-start bg-white w-auto md:w-3/4 lg:w-1/2 h-auto border-2 border-solid border-amber-200 p-4  rounded-lg">
     <span class="font-black text-[32px] leading-10 py-2">Контакты</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Ваши вопрсы и предложения мы будем рады получить по следующим адресам:</span>
     <div class="flex flex-col md:flex-row justify-between w-full">
@@ -47,10 +47,10 @@
   </div>
 
   <!-- svelte-ignore component-name-lowercase -->
-  <div class="justify-self-end flex flex-col items-start w-auto bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
+  <div class="justify-self-end flex flex-col items-start w-auto md:w-3/4 lg:w-1/2 bg-white  border-2 border-solid border-amber-200 p-4  rounded-lg">
     <span class="font-black text-[32px] leading-10 py-2">Обратная связь</span>
     <span class="font-normal text-[16px] leading-6 mb-4">Отправьте Ваш вопрос, комментарий, пожелание прямо с сайта.</span>
-    <div class="grid grid-rows-[54px_54px_120px] gap-4 w-[640px]">
+    <div class="grid grid-rows-[54px_54px_120px] gap-4 w-full max-w-[640px]">
       <div class="">
         <input type="search" name="name" placeholder="Ваше имя" class="input input-bordered -mb-1 w-full bg-blue-50 placeholder:text-gray-400" on:blur={handleChange} bind:value="{$form.name}" />
         {#if errors.name.length !== 0}
