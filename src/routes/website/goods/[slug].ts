@@ -105,7 +105,7 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, par
     try {
       console.log('ServerDialog: ', req_data);
       const postsData = {create: [{rating: req_data.rating, comment: req_data.comment, productName: `${req_data.productName}|${locals.userid}`, }, ], };
-      const reqObj = {where: task, create: {name: req_data.name, uid: locals.userid, posts: postsData, }, update: {name: req_data.name, posts: postsData, }, select: {posts: {select: {productName: true, rating: true, comment: true}}}};
+      const reqObj = {where: task, create: {name: req_data.name, uid: locals.userid, posts: postsData, }, update: {name: req_data.name, posts: postsData, }, select: {uid: true, posts: {select: {productName: true, rating: true, comment: true}}}};
       const user = await api('user', 'upsert', reqObj);
       return {
       body: {

@@ -139,6 +139,7 @@
           };
         });
         $basket = result.body.basket;
+        $uid = result.body.uid;
         $ident = '';
         return {
           message: result.msg

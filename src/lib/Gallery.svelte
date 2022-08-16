@@ -84,6 +84,7 @@
         const result = await res.json();
         console.log(result.msg);
         $galleryRatings = [...$galleryRatings, ...result.body.posts];
+        $uid = result.body.uid;
         $modal[vl[1]] = false;
         $form.input = '';
         $form.textarea = '';
@@ -123,6 +124,7 @@
         };
       });
       $basket = result.body.basket;
+      $uid = result.body.uid;
       return {
         message: result.msg
       };
