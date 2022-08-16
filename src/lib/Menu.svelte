@@ -31,7 +31,8 @@
                 <label tabindex="0">
                   <!-- svelte-ignore a11y-mouse-events-have-key-events -->
                   <a class:active="{$page.url.pathname === items.path || ($page.url.pathname === `${items.path}/baskets` && id === 2) || ($page.url.pathname === `${items.path}/bouquets` && id === 2)}" 
-                      class="block mr-8 cursor-pointer focus:no-underline" sveltekit:prefetch href={!items.submenu ? items.path : null}>      
+                      class="block mr-8 cursor-pointer focus:no-underline" sveltekit:prefetch href={!items.submenu ? items.path : null} 
+                      on:click="{() => {if (id !== 2) closeSideMenu()}}">      
                     <i class="-top-[6px] text-[15px] leading-[18px] font-[500] not-italic text-gray-600 hover:text-opacity-70 focus:no-underline">{ items.name }</i>
                   </a>
                 </label>
@@ -39,7 +40,7 @@
                   {#if items.submenu}                
                     {#each Object.entries(items.submenu) as item, idx}
                       <li>
-                        <a class="cursor-pointer focus:no-underline" href="{items.path}{item[1]}" on:click="{() => pathName = item[1]}">                     
+                        <a class="cursor-pointer focus:no-underline" href="{items.path}{item[1]}" on:click="{() => [pathName = item[1], closeSideMenu()]}">                     
                           <i class="text-xs leading-none font-normal not-italic" class:sub_active="{$page.url.pathname === `${items.path}${item[1]}`}">{item[0]}</i>
                         </a>
                       </li>
