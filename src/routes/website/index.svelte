@@ -1,14 +1,25 @@
 <script context="module">
-	export const prerender = true
+	//export const prerender = true
+  /** @type {import('./__types/[slug]').Load} */
+  export const load = async ({ session }) => {
+    const { userid, message } = session;
+    return { props: {
+      userid: userid,
+    }};
+  };
 </script>
 
 <script lang="ts">
-  import { dataGallery } from '../../stores/app';
+  import { dataGallery, uid } from '../../stores/app';
   import type { Edit } from '$lib/types';
+
+  export let userid: string;
 
   let tag_names:string[] = [];
   let category_names:string[] = [];
   let zefirFlowers:Edit[] = [];
+
+  $uid = userid;
 
   for (let v of $dataGallery) {
     tag_names = [...tag_names, v.name];
@@ -20,6 +31,7 @@
   };
 
   console.log('Зефирные цветы: ', zefirFlowers);
+  $: console.log('UID: ', userid);
 </script>
   
 <svelte:head>
