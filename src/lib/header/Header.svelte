@@ -11,7 +11,7 @@
         </div>
       </a>  
       <div class="grid gap-0 text-gray-600 mt-1 py-4 pl-1">
-        <i class="font-bold text-[28px] md:text-3xl leading-none text-[#ab8c52]">Дело вкуса</i>
+        <i class="font-bold text-[28px] lg:text-3xl leading-none text-[#ab8c52]">Дело вкуса</i>
         <i class="font-semibold text-xs leading-none">Зефир:(букеты, корзины)</i>
         <!--<i class="font-semibold text-xs leading-none">Торты</i>
         <i class="font-semibold text-xs leading-none">Пирожные</i>-->
@@ -19,7 +19,7 @@
     </div>    
     
     <div class="absolute top-[100px] md:static flex flex-col text-center">
-      <span class="font-bold text-lg md:text-xl mb-2 leading-none text-[#ab5252]"><i>Красота, которую можно попробовать на вкус !</i></span>
+      <span class="font-bold text-sm md:text-base lg:text-xl mb-2 leading-none text-[#ab5252]"><i>Красота, которую можно попробовать на вкус !</i></span>
       <div
         use:clickOutside
         on:click-outside={() => search = ''}
