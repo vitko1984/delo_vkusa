@@ -12,7 +12,7 @@
 </svelte:head>
       
 <div class="container flex flex-col items-center">
-  <span class="font-black text-2xl lg:text-3xl xl:text-4xl text-[#ab5252]">
+  <span class="font-black text-2xl lg:text-3xl xl:text-4xl text-amber-50">
     <i>Зефирный букет - прекрасный подарок!</i>
   </span>
   <Gallery {...caption} />
