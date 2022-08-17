@@ -182,7 +182,7 @@
 
 <div class="page">
   <Header on:product="{headerEvent}"/>
-  <main class="main bg-cover bg-center bg-pink-300">
+  <main class="main bg-gray-200">
     <slot />
   </main>
 
@@ -215,6 +215,6 @@
 <style>
   .main {
     background: url(/back.jpg);
-    background-size: cover;
+    background-size: 100%;
   }
 </style>

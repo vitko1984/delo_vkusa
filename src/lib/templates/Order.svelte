@@ -1,5 +1,5 @@
 <!--<form on:submit|preventDefault="{handleSubmit}" class="">-->
-  <div class="flex flex-col items-start pl-2">
+  <div class="flex flex-col items-start px-2">
     <span class="label">
       <i class="label-text text-[#ab8c52] font-normal text-3xl">Покупатель</i>
     </span>
@@ -27,14 +27,14 @@
     <span class="label">
       <i class="label-text text-[#ab8c52]">Адрес(для доставки):</i>
     </span>
-    <textarea type="text" name="address" class="textarea textarea-bordered h-24 w-full max-w-xs placeholder:text-gray-300" placeholder="Введите адрес..." bind:value="{$form.address}"></textarea>
+    <textarea type="text" name="address" class="textarea textarea-bordered h-16 w-full max-w-xs placeholder:text-gray-300" placeholder="Введите адрес..." bind:value="{$form.address}"></textarea>
     <span class="label">
       <span class="mb-1">*</span><i class="label-text text-gray-500 text-xs">Помеченные поля обязательны для заполнения.</i>
     </span>
     <span class="label">
       <i class="label-text text-[#ab8c52]">Детали заказа:</i>
     </span>
-    <div class="w-full bg-white px-2 rounded-lg border border-gray-300">  
+    <div class="w-full max-w-xs bg-white px-2 rounded-lg border border-gray-300">  
       {#each $tbl as row, idx}
         {#if new RegExp($uid).test(row.productName)}
           <div class="flex py-1 flex-col shadow-rowDownShadow text-left text-sm leading-6 font-extrabold">
