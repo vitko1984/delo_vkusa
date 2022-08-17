@@ -19,13 +19,13 @@
     </div>    
     
     <div class="absolute top-[100px] md:static flex flex-col text-center">
-      <span class="font-bold text-sm md:text-base lg:text-xl mb-2 leading-none text-[#ab5252]"><i>Красота, которую можно попробовать на вкус !</i></span>
+      <span class="font-bold text-base md:text-lg lg:text-xl mb-2 leading-none text-[#ab5252]"><i>Красота, которую можно попробовать на вкус !</i></span>
       <div
         use:clickOutside
         on:click-outside={() => search = ''}
         class="flex items-start h-10 w-auto 2xl:w-[640px] bg-white border border-solid border-[#a4a099] rounded-lg shadow-headerShadow">
-        <button on:click="{() => handleEvent('search')}" class="py-[6px]"><i class="fas fa-search text-[#a4a099] self-center ml-2"></i></button>
-        <input list="search" type="text" placeholder="Введите название или выберите из списка..." bind:value="{search}" on:blur={handleChange} class="self-center h-9 mx-1 w-full border-none placeholder:font-normal placeholder:text-[#a4a099] placeholder:text-sm placeholder:not-italic" />
+        <button on:click="{() => handleEvent('search')}" class="py-[6px]"><i class="fas fa-search text-[#a4a099] self-center ml-2 px-1"></i></button>
+        <input list="search" type="text" placeholder="Введите название или выберите из списка..." bind:value="{search}" on:blur={handleChange} class="self-center h-9 w-full border-none placeholder:font-normal placeholder:text-[#a4a099] placeholder:text-sm placeholder:not-italic" />
         <datalist id="search">
           {#each dataSearch as name, idx}
             <option>{name}</option>
