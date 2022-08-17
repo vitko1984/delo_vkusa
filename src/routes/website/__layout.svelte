@@ -182,7 +182,7 @@
 
 <div class="page">
   <Header on:product="{headerEvent}"/>
-  <main class="bg-cover bg-center" style="background-image: url(/back.jpg)">
+  <main class="main bg-cover bg-center bg-pink-300">
     <slot />
   </main>
 
@@ -211,3 +211,10 @@
     <p class="w-full text-center border-t border-solid border-white">Авторские права "Дело вкуса"<i>©</i>2022. Все права защищены.</p> 
   </footer>
 </div>
+
+<style>
+  .main {
+    background: url(/back.jpg);
+    background-size: cover;
+  }
+</style>
