@@ -92,4 +92,13 @@
     email?: string[];
     phone?: string[];
   }
+
+  export interface AdminTbl { 
+   tag?: {value: string; isEdit: boolean}; 
+   category?: {value: string; isEdit: boolean};
+   name?: {value: string; isEdit: boolean}; 
+   photo?: {value: string; isEdit: boolean}; 
+   price?: {value: string; isEdit: boolean}; 
+   description?: {value: string; isEdit: boolean}; 
+ };
   

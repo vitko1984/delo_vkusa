@@ -71,7 +71,7 @@
     <div class="grid grid-rows-[48px_minmax(48px,_1fr)]">
 
       <!--Шапка(верхняя часть) таблицы-->
-      <div class="grid grid-cols-[260px_100px_repeat(2,_minmax(100px,_1fr))_100px_minmax(200px,_1fr)_50px] bg-gray-50">
+      <div class="grid grid-cols-[260px_100px_repeat(2,_minmax(100px,_1fr))_100px_minmax(200px,_1fr)_50px] bg-amber-50">
         {#each tbl_hdrs as header,i}
           <div class="place-content-center flex items-center" class:name_shadow="{i === 0}" class:border_right="{i !== tbl_hdrs.length - 1}">
             {#if i === 0}
@@ -103,8 +103,8 @@
       </div>
 
       <!--Контент таблицы-->
-      <div class="grid grid-cols-[260px_100px_repeat(2,_minmax(100px,_1fr))_100px_minmax(200px,_1fr)_50px] shadow-rowDownShadow">
-        <RowTbl {rowTable} />
+      <div class="grid grid-cols-[260px_100px_repeat(2,_minmax(100px,_1fr))_100px_minmax(200px,_1fr)_50px] shadow-rowDownShadow bg-gray-50">
+        <Tbl {rowTable} />
         <FormTbl {table} on:table="{handleVerify}" onClose="{i => handleClose(i)}" />
       </div>
     </div>
@@ -126,9 +126,9 @@
   import { mdiMenuDown } from '@mdi/js';
   import { mdiMenuUp } from '@mdi/js';
   import menu from '$lib/local/ru-RU';
-  import type { DataGallery } from '$lib/types';
+  import type { DataGallery, AdminTbl } from '$lib/types';
   import FormTbl from './components/FormTbl.svelte';
-  import RowTbl from './components/RowTbl.svelte';
+  import Tbl from './components/RowTbl.svelte';
 
   export let get_prd;
 
@@ -138,14 +138,14 @@
   console.log('Сообщение выборки продуктов: ', get_prd.msg);
 
 
-  let rowTable: {name?: string; tag?: string; category?: string; photo?: string; price?: string; description?: string}[] = [];
-  let rw: {name?: string; tag?: string; category?: string; photo?: string; price?: string; description?: string;} = {};
+  let rowTable: AdminTbl[] = [];
+  let rw: AdminTbl = {};
   for (const v of get_products) {
-    rw = {...rw, tag: v.name};
+    rw = {...rw, tag: {value: v.name, isEdit: false}};
     for (const s of v.categories) {
-      rw = {...rw, category: s.name};
+      rw = {...rw, category: {value: s.name, isEdit: false}};
       for (const p of s.products) {
-        rw = {...rw, ...p};
+        rw = {...rw, ...{name: {value: p.name, isEdit: false}, photo: {value: p.photo, isEdit: false}, price: {value: p.price, isEdit: false}, description: {value: p.description, isEdit: false}}};
         rowTable = [...rowTable, rw];
       };
     };
@@ -289,6 +289,7 @@
 $: console.log('formTbl: ', formTbl);
 $: console.log('isErrors: ', isErrors);
 $: console.log('Сортировка: ', is_direction);
+$: console.log('rowTable: ', rowTable);
 </script>
 
 <style>
@@ -300,6 +301,6 @@ $: console.log('Сортировка: ', is_direction);
     @apply shadow-rowRightShadow;
   }
   .border_right {
-    @apply border-r border-[#eeecf7] border-solid h-full;
+    @apply border-r border-solid h-full;
   }
 </style>

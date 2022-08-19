@@ -24,37 +24,6 @@ module.exports = async (request: VercelRequest, response: VercelResponse) => {
       // Отправляем наше новое сообщение обратно в Markdown
       await bot.sendMessage(id, message, {parse_mode: 'Markdown'});
     };
-    /*if (body.title === 'Заказ' || body.title === 'Перезвонить' || body.title === 'Комментарий "Контакты"') {
-      let html = '';
-      if (body.envelope) { 
-        let envlpCntnt = '';
-        body.envelope.map(v => {
-          envlpCntnt += `
-            Продукт: ${v.productName.replace(`|${locals.userid}`, '')}\n
-            Цена: ${v.price}\n
-            Количество: ${v.amount}`;
-        });
-        html = `*${body.title}*\n
-          Заказчик: ${body.name}\n 
-          Телефон: ${body.phone}\n 
-          Эл.почта: ${body.email}\n 
-          Адрес доставки: ${body.address}\n\n 
-          *Детали заказа:*\n
-          ${envlpCntnt}\n\n
-          *Общая стоимость:* ${req_data.total}`;
-      } else if (body.title === 'Перезвонить') {
-        html = `*${body.title}*\n
-          Клиент: ${body.name}\n
-          Телефон: ${body.phone}\n
-          Вемя звонка, пожелания: ${req_data.wish}`;	
-      } else if (body.title === 'Комментарий "Контакты"') {
-        html = `*${body.title}*\n
-          Клиент: ${body.name}\n
-          Эл.почта: ${body.email}\n
-          Комментарий, пожелание: ${body.wish}`;
-      };
-      await bot.sendMessage(userId, html, {parse_mode: 'Markdown'});
-    };*/
   } catch(error) {
     // Если произошла ошибка при отправке нашего сообщения, то мы
     // может войти в консоль Vercel
