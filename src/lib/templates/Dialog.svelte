@@ -44,6 +44,6 @@
 }
 .DialogBody {
   @apply pt-2 text-center overflow-x-hidden /*border-y border-solid border-gray-300*/;
-  //max-height: 50vh;
+  max-height: 70vh;
 }
 </style>

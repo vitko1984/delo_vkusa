@@ -53,7 +53,7 @@
         </div>
         <div>
           <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Аккаунт - баланс</p>
-          <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">$ 46,760.89</p>
+          <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">4, 670,760.89 руб.</p>
         </div>
       </div>
       <!-- Card -->
@@ -121,17 +121,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Hans Burger</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer</p>
+                    <p class="font-semibold">Тимур Абдуллаев</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">1С Разработчик </p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 863.45 </td>
+              <td class="px-4 py-3 text-sm"> 86300.45 руб. </td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                 >
-                  Approved
+                  Одобрено
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -151,17 +151,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Jolina Angelie</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Unemployed</p>
+                    <p class="font-semibold">Светлана Сергеева</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Домохозяйка</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 369.95 </td>
+              <td class="px-4 py-3 text-sm">36900.95 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
                 >
-                  Pending
+                  В ожидании
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -181,17 +181,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Sarah Curry</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Designer</p>
+                    <p class="font-semibold">Ольга  Мосийчук</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Дизайнер</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 86.00 </td>
+              <td class="px-4 py-3 text-sm"> 8600.00 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
                 >
-                  Denied
+                  Отклонено
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -211,17 +211,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Rulia Joberts</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Actress</p>
+                    <p class="font-semibold">Юлия Кузнецова</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Актриса</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 1276.45 </td>
+              <td class="px-4 py-3 text-sm">127600.45 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                 >
-                  Approved
+                  Одобрено
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -241,17 +241,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Wenzel Dashington</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Actor</p>
+                    <p class="font-semibold">Тарас Незалежко</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Блогер</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 863.45 </td>
+              <td class="px-4 py-3 text-sm">86300.45 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
                 >
-                  Expired
+                  Истек
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -271,17 +271,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Dave Li</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Influencer</p>
+                    <p class="font-semibold">Степан Степанов</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Маркетолог</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 863.45 </td>
+              <td class="px-4 py-3 text-sm">86300.45 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                 >
-                  Approved
+                  Одобрено
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -301,17 +301,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Maria Ramovic</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Runner</p>
+                    <p class="font-semibold">Мария Романенко</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Брокер</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 863.45 </td>
+              <td class="px-4 py-3 text-sm">86300.45 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                 >
-                  Approved
+                  Одобрено
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -331,17 +331,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Hitney Wouston</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Singer</p>
+                    <p class="font-semibold">Клара Новикова</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Певица</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 863.45 </td>
+              <td class="px-4 py-3 text-sm">86300.45 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                 >
-                  Approved
+                  Одобрено
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -361,17 +361,17 @@
                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="font-semibold">Hans Burger</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer</p>
+                    <p class="font-semibold">Владлен Татарский</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Писатель</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm"> $ 863.45 </td>
+              <td class="px-4 py-3 text-sm">86300.45 руб.</td>
               <td class="px-4 py-3 text-xs">
                 <span
                   class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                 >
-                  Approved
+                  Одобрено
                 </span>
               </td>
               <td class="px-4 py-3 text-sm"> 6/10/2020 </td>
@@ -382,7 +382,7 @@
       <div
         class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
       >
-        <span class="flex items-center col-span-3"> Showing 21-30 of 100 </span>
+        <span class="flex items-center col-span-3"> Показать 21-30 из 100 </span>
         <span class="col-span-2" />
         <!-- Pagination -->
         <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
