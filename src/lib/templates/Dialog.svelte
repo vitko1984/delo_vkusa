@@ -40,10 +40,10 @@
   @apply fixed bottom-0 left-0 right-0 top-0  bg-black bg-opacity-50 z-10;
 }
 .DialogModalWrap {
-  @apply bg-white bg-opacity-90 my-[5%] mx-auto max-w-lg h-auto;
+  @apply bg-white bg-opacity-90 my-[5%] mx-auto max-w-lg;
 }
 .DialogBody {
   @apply pt-2 text-center overflow-x-hidden /*border-y border-solid border-gray-300*/;
-  max-height: 70vh;
+  max-height: 60vh;
 }
 </style>
