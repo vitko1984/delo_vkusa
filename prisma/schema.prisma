@@ -3,15 +3,15 @@
 
 generator client {
   provider = "prisma-client-js"
-  //engineType = "binary"
-  previewFeatures = ["referentialIntegrity"]
+  engineType = "binary"
+  //previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  //provider="postgresql"
+  //provider = "mysql"
+  provider="postgresql"
   url      = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  //referentialIntegrity = "prisma"
 }
 
 model User {

@@ -1,19 +1,13 @@
-<script context="module">
-	//export const prerender = true
-  /** @type {import('./__types/[slug]').Load} */
-  export const load = async ({ session }) => {
-    const { userid, message } = session;
-    return { props: {
-      userid: userid,
-    }};
-  };
-</script>
-
 <script lang="ts">
+  //throw new Error("@migration task: Add data prop (https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3292707)");
+
   import { dataGallery, uid } from '../../stores/app';
   import type { Edit } from '$lib/types';
 
-  export let userid: string;
+  //export let userid: string;
+  export let data;
+
+  const {userid} = data;
 
   let tag_names:string[] = [];
   let category_names:string[] = [];

@@ -6,6 +6,7 @@ let routeFolder = process.env.ROUTE_FOLDER
 
 if (routeFolder == undefined) {
   routeFolder = 'website';
+  //routeFolder = 'admin';
   //routeFolder = '';
 };
 

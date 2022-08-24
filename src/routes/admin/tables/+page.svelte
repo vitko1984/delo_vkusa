@@ -71,10 +71,10 @@
     <div class="grid grid-rows-[48px_minmax(48px,_1fr)]">
 
       <!--Шапка(верхняя часть) таблицы-->
-      <div class="grid grid-cols-[260px_100px_repeat(2,_minmax(100px,_1fr))_100px_minmax(200px,_1fr)_50px] bg-amber-50">
+      <div class="grid grid-cols-[100px_repeat(2,_minmax(80px,_1fr))minmax(120px,_1fr)_100px_minmax(120px,_1fr)_40px] bg-amber-50">
         {#each tbl_hdrs as header,i}
-          <div class="place-content-center flex items-center" class:name_shadow="{i === 0}" class:border_right="{i !== tbl_hdrs.length - 1}">
-            {#if i === 0}
+          <div class="place-content-center flex items-center" class:name_shadow="{i !== tbl_hdrs.length - 1}">
+            {#if i === 2}
               <span class="flex px-4">
                 <button on:click={() => {}} class="text-gray-200 hover:text-gray-300 mr-4"><i class="fas fa-cog"></i></button>        
                 <span class="flex items-center">
@@ -103,23 +103,17 @@
       </div>
 
       <!--Контент таблицы-->
-      <div class="grid grid-cols-[260px_100px_repeat(2,_minmax(100px,_1fr))_100px_minmax(200px,_1fr)_50px] shadow-rowDownShadow bg-gray-50">
-        <Tbl {rowTable} />
+      <div class="grid grid-cols-[100px_repeat(2,_minmax(80px,_1fr))minmax(120px,_1fr)_100px_minmax(120px,_1fr)_40px] shadow-rowDownShadow bg-gray-50">
+        <Tbl {rowTable} on:edit="{handleVerify}" />
         <FormTbl {table} on:table="{handleVerify}" onClose="{i => handleClose(i)}" />
-      </div>
+      </div><br />
+      <span class="text-left flex flex-col label-text font-semibold text-[#ab5252] text-xs">
+        <span>* <i>1. Поля "Название" и "Фото" должны быть уникальными(неповторяющимися).</i></span>
+        <span>* <i class="">2. "Категории" должны наследоваться от "Тэгов", а все остальные поля от "Категорий".</i></span>
+      </span>
     </div>
   </div>
 </main>
-
-<script context="module">
-  /** @type {import('./[slug]').Load} */
-  export const load = async ({ fetch }) => {
-    const products = await fetch('/goods');
-    return { props: {
-      get_prd: products.ok && (await products.json()),
-    }};
-  };
-</script>
 
 <script lang="ts">
   import { fly } from 'svelte/transition';
@@ -127,10 +121,12 @@
   import { mdiMenuUp } from '@mdi/js';
   import menu from '$lib/local/ru-RU';
   import type { DataGallery, AdminTbl } from '$lib/types';
-  import FormTbl from './components/FormTbl.svelte';
-  import Tbl from './components/RowTbl.svelte';
+  import FormTbl from '../components/FormTbl/+page.svelte';
+  import Tbl from '../components/RowTbl/+page.svelte';
 
-  export let get_prd;
+  export let data;
+
+  const {get_prd} = data;
 
   let get_products = get_prd.tbl ? get_prd.tbl : [];
 
@@ -141,11 +137,11 @@
   let rowTable: AdminTbl[] = [];
   let rw: AdminTbl = {};
   for (const v of get_products) {
-    rw = {...rw, tag: {value: v.name, isEdit: false}};
+    rw = {...rw, ...{tag_id: v.id, tag: {value: v.name, isEdit: false}}};
     for (const s of v.categories) {
-      rw = {...rw, category: {value: s.name, isEdit: false}};
+      rw = {...rw, ...{category_id: s.id, category: {value: s.name, isEdit: false}}};
       for (const p of s.products) {
-        rw = {...rw, ...{name: {value: p.name, isEdit: false}, photo: {value: p.photo, isEdit: false}, price: {value: p.price, isEdit: false}, description: {value: p.description, isEdit: false}}};
+        rw = {...rw, ...{product_id: p.id, name: {value: p.name, isEdit: false}, photo: {value: p.photo, isEdit: false}, price: {value: p.price, isEdit: false}, description: {value: p.description, isEdit: false}}};
         rowTable = [...rowTable, rw];
       };
     };
@@ -157,7 +153,7 @@
   let is_direction = [[false, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false], ];
   let menuTbl = false;
   let table: DataGallery[] = [];
-  let formTbl: DataGallery[] = [];
+  let formTbl: AdminTbl[] = [];
   let isErrors: boolean[] = [];
 
   const handleClose = (i: number) => {
@@ -167,54 +163,55 @@
     console.log('Close Table: ', table);
   };
 
-  const handleVerify = (event: { detail: { rowTbl: DataGallery[]; }; }) => {
+  const handleVerify = (event: { detail: { rowTbl: AdminTbl[]; }; }) => {
     console.log('***handleVerify***');
     formTbl = [];
     event.detail.rowTbl.map((v, i) => {
-      isErrors[i] =  (v.name.length <= 2 || v.tag.length <= 2 || v.category.length <= 2 || v.photo.length <= 2 || v.price?.length <= 2) ? true : false;
+      isErrors[i] =  (v.name.value.length <= 2 || v.tag.value.length <= 2 || v.category.value.length <= 2 || v.photo.value.length <= 2 || v.price.value.length <= 2) ? true : false;
     });
     if (isErrors.filter(s => s === true).length === 0) formTbl = [...formTbl, ...event.detail.rowTbl];
   };
 
   const addRow = () => {
     console.log('***addRow***');
-    const formInit = {name: '', tag: '', category: '', photo: '', price: '',};
+    const formInit = {name: '', tag: '', category: '', photo: '', price: '', description: ''};
     table = [...table, formInit];
   };
 
   const handleSubmit = async ( t: DataGallery[] ) => {
     console.log('***handleSubmit***');
     if (t.length === 0) return;
-    let tags: {name?: string, categories?: {name?: string; products?: DataGallery[]}[]}[] = [];
-    let ctgrs: {name?: string; tag?: string;  products?: DataGallery[];}[] = [];
-    let nameCtgrs: string[] = [];
-    let nameTags: string[] = [];
+    let data:{name?:string, categories?: {name?:string; products?:DataGallery[]}[]}[] = [];
+    let ctgrs:{tag: string; category: string; products: DataGallery[]; }[] = [];
+    let nameCtgrs:string[] = [];
+    let nameTags:string[] = [];
+
     for (let m of t) {
-      if (!nameTags.includes(m.tag)) nameTags.push(m.tag); 
+      if (!nameTags.includes(m.tag.value)) nameTags.push(m.tag.value);
+      if (!nameCtgrs.includes(m.category.value)) nameCtgrs.push(m.category.value);
     };
     for (let p of nameTags) {
-      tags.push({name: p, categories: []});
-    };
-    for (let s of t) {
-      if (!nameCtgrs.includes(s.category)) nameCtgrs.push(s.category);
+      data.push({name: p, categories: []});
     };
     for (let n of nameCtgrs) {
-      ctgrs.push({name: n, products: []});
+      ctgrs.push({category: n, products: []});
     };
     ctgrs.map((vl, idx) => {
       t.map(v => {
-        if (vl.name === v.category) {
-          ctgrs[idx].products.push({name: v.name, price: v.price, photo: v.photo, description: v.description});
-          ctgrs[idx].tag = v.tag;
+        if (vl.category === v.category.value) {
+          ctgrs[idx].products.push({name: v.name.value, price: v.price.value, photo: v.photo.value, description: v.description.value});
+          ctgrs[idx].tag = v.tag.value;
         }; 
       })
     });
-    tags.map((q, i) => {
-      ctgrs.map(r => {
-        if (q.name === r.tag) tags[i].categories.push({name: r.name, products: r.products});
+    data.map((q, i) => {
+      ctgrs.map((r, id) => {
+        if (q.name === r.tag) {
+          data[i].categories?.push({name: r.category, products: r.products});
+        };
       });
     });
-    const res = await fetch('/goods', {method: 'POST', body: JSON.stringify(tags), headers: {'Content-Type': 'application/json'}});
+    /*const res = await fetch('/goods', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}});
     if (res.ok) {
       rw = {};
       const result = await res.json();
@@ -222,12 +219,12 @@
       console.log('Данные с сервера(adminLoadGoods): ', result.tbl);
       if (result.tbl && result.tbl.length !== 0) table = [];
       for (const v of result.tbl) {
-        rowTable = rowTable.filter(t => t.tag !== v.body.name);
-        rw = {...rw, tag: v.body.name};
+        rowTable = rowTable.filter(t => t.tag.value !== v.body.name);
+        rw = {...rw, ...{tag_id: v.id, tag: {value: v.body.name, isEdit: false}}};
         for (const s of v.body.categories) {
-          rw = {...rw, category: s.name};
+          rw = {...rw, ...{category_id: s.id, category: {value: s.name, isEdit: false}}};
           for (const p of s.products) {
-            rw = {...rw, ...p};
+            rw = {...rw, ...{product_id: p.id, name: {value: p.name, isEdit: false}, photo: {value: p.photo, isEdit: false}, price: {value: p.price, isEdit: false}, description: {value: p.description, isEdit: false}}};
             rowTable = [...rowTable, rw];
           };
         };
@@ -236,8 +233,11 @@
         message: result.msg,
         dataTbl: result.tbl
       };
-    };
-    console.log('Tags: ', tags);
+    };*/
+    console.log('Data: ', data);
+    console.log('Ctgrs: ', ctgrs);
+    console.log('NameTags: ', nameTags);
+    console.log('NameCtgrs: ', nameCtgrs);
   };
 
   const handleClearTable = async () => {
@@ -300,7 +300,7 @@ $: console.log('rowTable: ', rowTable);
   .name_shadow {
     @apply shadow-rowRightShadow;
   }
-  .border_right {
+  /*.border_right {
     @apply border-r border-solid h-full;
-  }
+  }*/
 </style>

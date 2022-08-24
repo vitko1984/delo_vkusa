@@ -24,6 +24,7 @@
   }
 
   export interface DbApi {
+    id?: number;
     name?: string;
     uid?: string;
     email?: string;
