@@ -1,3 +1,4 @@
+import { json as json$1 } from '@sveltejs/kit';
 import { api } from '../../_db-api';
 
 // GET /goods.json
@@ -5,41 +6,33 @@ export const GET: import('@sveltejs/kit').RequestHandler = async ({locals}) => {
   console.log('*serverAdminGetProducts*');	
   // пользователь должен установить файл cookie
   if (!locals.userid) {
-	return { 
-	  body: {
-		status: 401,
-		msg: 'Файл cookie не установлен.'
-	  }
-	};
+	  return json$1({
+	    status: 401,
+	    msg: 'Файл cookie не установлен.'
+    });
   };
 
   try {
-	const reqObj = {select: {name: true, categories: {select: {name: true, products: {select: {name: true, photo: true, price: true, description: true}}}}}, };
-	const products = await api('tag', 'get_many', reqObj);
-	console.log('getProducts: ', products.body);
-	if (!products.body) {
-	  return { 
-		status: 204,
-		msg: 'Ничего не найдено.' 
+	  const reqObj = {select: {id: true, name: true, categories: {select: {id: true, name: true, products: {select: {id: true, name: true, photo: true, price: true, description: true}}}}}, };
+	  const products = await api('tag', 'get_many', reqObj);
+	  console.log('getProducts: ', products.body);
+	  if (!products.body) {
+	    return new Response(undefined, { status: 204 });
+	  } else {
+	    return json$1({
+        tbl: products.body,
+        status: 200,
+        msg: 'Товары успешно извлечены из БД.',
+      });
 	  };
-	} else {
-	  return {
-        body: {
-          tbl: products.body,
-          status: 200,
-          msg: 'Товары успешно извлечены из БД.',
-        }
-	  };
-	};
   } catch(e) {
-	console.log('Ошибка БД: ', e.name);
-	console.log('Сообщение об ошибке: ', e.message);
-	return {
-	  body: {
-		status: 401,
-		msg: e.message
-	  }
-	};		  
+	  console.log('Ошибка БД: ', e.name);
+	  console.log('Сообщение об ошибке: ', e.message);
+	  return json$1({
+      uid: locals.userid,
+	    status: 401,
+	    msg: e.message
+    });		  
   };
 };
 
@@ -47,11 +40,7 @@ export const GET: import('@sveltejs/kit').RequestHandler = async ({locals}) => {
 export const POST: import('@sveltejs/kit').RequestHandler = async ({request, locals}) => {
   // пользователь должен установить файл cookie
   if (!locals.userid) {
-    return { 
-      status: 401,
-      msg: 'Файл cookie не установлен.',
-      redirect: '/',
-    };
+    return new Response(undefined, { status: 401 });
   };
 
   const req_data = await request.json();
@@ -71,17 +60,15 @@ export const POST: import('@sveltejs/kit').RequestHandler = async ({request, loc
         createCtg.push({name: ctgName, products: {create: prod}});
       };
 
-      const reqObj = {where: {name: t.name}, create: {name: t.name, categories: {create: createCtg}}, update: {categories: {upsert: {where: {name: ctgName}, create: {name: ctgName, products: {create: prod}}, update: {products: {create: prod}}}}}, select: {name: true, categories: {select: {name: true, products: {select: {name: true, photo: true, price: true, description: true}}}}}};
+      const reqObj = {where: {name: t.name}, create: {name: t.name, categories: {create: createCtg}}, update: {categories: {upsert: {where: {name: ctgName}, create: {name: ctgName, products: {create: prod}}, update: {products: {create: prod}}}}}, select: {id: true, name: true, categories: {select: {id: true, name: true, products: {select: {id: true, name: true, photo: true, price: true, description: true}}}}}};
       load = [...load, await api('tag', 'upsert', reqObj)];
     };
     if (load.length !== 0) {
-      return {
-        body: {
-          tbl: load,
-          status: 200,
-          msg: 'Товары успешно внесены в БД.',
-        }
-      };
+      return json$1({
+  tbl: load,
+  status: 200,
+  msg: 'Товары успешно внесены в БД.',
+});
     };
   }
   catch(e) {
@@ -103,12 +90,10 @@ export const DELETE: import('@sveltejs/kit').RequestHandler = async () => {
     const deleteUsers =await api('user', 'delete_many', reqObj);
 
     if (/*deleteProducts && deleteCategories && deleteTags && deleteBasket && deletePosts && */deleteUsers) {
-      return {
-        body: {
-          status: 200,
-          msg: 'Таблица успешно очищена из БД.',
-        }
-      };
+      return json$1({
+  status: 200,
+  msg: 'Таблица успешно очищена из БД.',
+});
     };
   } catch(e) {
 	  console.log('Ошибка БД: ', e.name);

@@ -1,5 +1,5 @@
 import * as cookie from 'cookie';
-import type { Handle, GetSession } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
 // функция - дескриптор, выполняется только на сервере
 // и перехватывает каждый запрос на сервер
@@ -37,10 +37,4 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   return response;
-};
-  
-export const getSession: GetSession = (event) => {
-  const { message, userid, user } = event.locals;
-  console.log('hooks_getSessionEventLocals: ', event.locals);
-  return { message: message, userid: userid, user: user };
 };

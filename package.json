@@ -2,7 +2,7 @@
 	"name": "delo-vkusa",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "NODE_OPTIONS=\"--inspect netlify functions:serve\" vite dev",
+		"dev": "NODE_OPTIONS=\"--inspect\" vite dev",
 		"build": "vite build",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
@@ -16,6 +16,7 @@
 		"@mdi/js": "^7.0.96",
 		"@netlify/functions": "^1.0.0",
 		"@prisma/client": "^4.2.1",
+		"@supabase/supabase-js": "^1.35.6",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-netlify": "^1.0.0-next.71",
 		"@sveltejs/kit": "next",

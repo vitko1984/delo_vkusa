@@ -1,18 +1,6 @@
-<script context="module">
-  /** @type {import('./__types/[slug]').Load} */
-  export const load = async ({ fetch, session }) => {
-    const { userid, message } = session;
-    const products = await fetch('/goods/get_products');
-    const users = await fetch('/goods/get_users');
-    return { props: {
-      usr: users.ok && (await users.json()),
-      get_prd: products.ok && (await products.json()),
-      userid: userid,
-    }};
-  };
-</script>
-
 <script lang="ts">
+  //throw new Error("@migration task: Add data prop (https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3292707)");
+
   import '../../app.css';
   import Header from '$lib/header/Header.svelte';
   import Basket from '$lib/templates/BasketInner.svelte';
@@ -32,18 +20,22 @@
     galleryRatings, 
     dataGallery } from '../../stores/app';
 
-  interface DataUser extends Edit {envelope?: Edit[], };  
+  interface DataUser extends Edit {envelope?: Edit[], }; 
   
-  export let userid = '';
-  export let usr: {users: Edit[]; msg?: string};
-  export let get_prd: {tbl: any[]; msg: string; status: number};
+  export let data;
+
+  const {usr, get_prd} = data;
+  
+  ///export let userid = '';
+  ///export let usr: {users: Edit[]; uid: string; msg?: string};
+  ///export let get_prd: {tbl: any[]; msg: string; status: number};
 
   let isNoErrors = false;
   let count = 0;
   let dataUser: DataUser;
 
   $dataGallery = get_prd.tbl;
-  $uid = userid;
+  $uid = usr.uid;
   $users = [];
   $galleryRatings = [];
   $basket = [];
@@ -94,7 +86,7 @@
       isNoErrors = $form.name.length === 0 || $form.email.length === 0 || $form.phone.length === 0 || 
       ($form.name.length > 0 && $form.name.length <= 1) || ($form.email.length > 0 && !/@/.test($form.email)) || 
       ($form.phone.length > 0 && $form.phone.length <= 10) ? false : true;
-      dataUser = {title: vl[0], name: $form.name, email: $form.email, phone: $form.phone, address: $form.address, envelope: $basket.filter(v => new RegExp(userid).test(v.productName)), total: $form.total, };
+      dataUser = {title: vl[0], name: $form.name, email: $form.email, phone: $form.phone, address: $form.address, envelope: $basket.filter(v => new RegExp($uid).test(v.productName)), total: $form.total, };
     };
     if (vl[0] === 'Перезвонить') {
       $isHandleErrors = true;
@@ -104,29 +96,29 @@
     };
     if (vl[0] === 'В корзину' && product !== undefined) {
       $cnt += 1;
-      let data = {productName: product.name, price: product.price, amount: 1};
+      let dataBasket = {productName: product.name, price: product.price, amount: 1};
       if ($basket.length !== 0) {
         let _count = 0;
         $basket.map((v, i) => {
-          if (v.productName === `${data.productName}|${$uid}`) {
+          if (v.productName === `${dataBasket.productName}|${$uid}`) {
             _count = _count + 1;
-            data = {productName: data.productName, price: v.price, amount: v.amount +1};
+            data = {productName: dataBasket.productName, price: v.price, amount: v.amount +1};
             $basket.splice(i, 1, {productName: v.productName, price: v.price, amount: v.amount +1}); 
           };
-          if ((i === $basket.length - 1) && _count === 0)  $basket.push({productName: `${data.productName}|${$uid}`, price: data.price, amount: data.amount});
+          if ((i === $basket.length - 1) && _count === 0)  $basket.push({productName: `${dataBasket.productName}|${$uid}`, price: dataBasket.price, amount: dataBasket.amount});
         });
       } else {
-        $basket.push({productName: `${data.productName}|${$uid}`, price: data.price, amount: data.amount});
+        $basket.push({productName: `${dataBasket.productName}|${$uid}`, price: dataBasket.price, amount: dataBasket.amount});
       };
       console.log('Обновленное хранилище корзины: ', $basket);
-      postBasket(data);
+      postBasket(dataBasket);
     };
   };
 
-  const postBasket = async (data: object) => {
+  const postBasket = async (dataBasket: object) => {
     console.log('***postBasket***');
     try {
-      const res = await fetch('/goods/basket', {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
+      const res = await fetch('/goods/basket', {method: 'POST', body: JSON.stringify(dataBasket), headers: {'Content-Type': 'application/json'}, credentials: 'include'});
       if (res.ok) {
         const result = await res.json();
         console.log('Ответ сервера(PostUserBasket): ', result.msg);

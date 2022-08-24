@@ -1,19 +1,3 @@
-<script context="module">
-	import { browser, dev } from '$app/env';
-
-	// нам не нужен JS на этой странице, хотя мы загрузим
-	// это в dev, чтобы мы получили горячую замену модуля...
-	export const hydrate = dev;
-
-	// ...но если клиентский маршрутизатор уже загружен
-	// (т.е. мы пришли сюда из другого места в приложении), используйте его
-	export const router = browser;
-
-	// так как здесь нет динамических данных, мы можем пререндерить
-	// так, чтобы он служил статическим активом в prod
-	export const prerender = true;
-</script>
-
 <svelte:head>
 	<title>О нас</title>
 </svelte:head>

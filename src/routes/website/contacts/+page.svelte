@@ -69,12 +69,8 @@
   </div>
 </div>
 
-<script context="module">
-	export const prerender = true
-</script>
-
 <script lang="ts">
-  import { form, isHandleErrors } from '../../stores/app';
+  import { form, isHandleErrors } from '../../../stores/app';
   import type { Edit } from '$lib/types';
 
   const field_empty = "Поле не заполнено.";
